@@ -39,8 +39,8 @@ public class WorldMap
     public static readonly Color32 LandColor = new Color32(190, 210, 60, 255);
     public static readonly Color32 EmptyLandColor = new Color32(215, 225, 170, 255);
     public static readonly Color32 LineColor = new Color32(70, 150, 40, 255);
-    public static readonly Color32 HoverColor = new Color32(225, 240, 110, 255);
     public static readonly Color32 SelectColor = new Color32(255, 170, 60, 255);
+    public static readonly Color32 PlayerColor = new Color32(170, 50, 200, 255); // 名字で染まった国の色（紫）
 
     byte[] ids;          // ピクセルごとの国の番号（Texture と同じく下の行から順）
     bool[] edge;         // 国境・海岸線のピクセル
@@ -48,6 +48,8 @@ public class WorldMap
     Country[] byId = new Country[256];
     int[] pixStart, pixList; // 国ごとのピクセルの一覧（番号 id の国は pixList[pixStart[id] .. pixStart[id+1]-1]）
     int hoverId, selectId;
+    readonly Color32[] countryColor = new Color32[256]; // 国ごとの塗りの色（名字の広がりで変わる）
+    bool dirty;  // 絵を変えたが、まだ Texture に送っていない
 
     public static WorldMap Load()
     {
@@ -69,6 +71,7 @@ public class WorldMap
         Width = list.width;
         Height = list.height;
         Countries = list.countries;
+        for (int k = 0; k < 256; k++) countryColor[k] = LandColor;
         foreach (var c in Countries)
         {
             byId[c.id] = c;
@@ -119,8 +122,9 @@ public class WorldMap
         if (edge[i]) return LineColor;
         if (v == NoPeople) return EmptyLandColor;
         if (v == selectId) return SelectColor;
-        if (v == hoverId) return HoverColor;
-        return LandColor;
+        var c = countryColor[v];
+        if (v == hoverId) return Color32.Lerp(c, new Color32(255, 255, 255, 255), 0.35f); // マウスの下は明るく
+        return c;
     }
 
     // 地図の位置（左下 0,0 〜 右上 1,1）にある国。海や人の住まない土地なら null
@@ -134,7 +138,7 @@ public class WorldMap
 
     public Country Get(int id) => id > 0 && id < 256 ? byId[id] : null;
 
-    // マウスが乗っている国（明るく）と、選んだ国（オレンジ）を塗り分ける。0 = なし
+    // マウスが乗っている国（明るく）と、選んだ国（オレンジ）を塗り分ける。0 = なし。Flush() で画面に出る
     public void SetHighlight(int hover, int select)
     {
         if (hover == hoverId && select == selectId) return;
@@ -145,6 +149,31 @@ public class WorldMap
         Repaint(oldSelect);
         Repaint(hover);
         Repaint(select);
+        dirty = true;
+    }
+
+    // 国の塗りの色を変える（変わったときだけ描き直す）
+    public void SetCountryColor(int id, Color32 color)
+    {
+        if (id <= 0 || id >= 255) return;
+        var old = countryColor[id];
+        if (old.r == color.r && old.g == color.g && old.b == color.b) return;
+        countryColor[id] = color;
+        Repaint(id);
+        dirty = true;
+    }
+
+    // 全部の国を最初の色に戻す
+    public void ResetColors()
+    {
+        for (int id = 1; id < 255; id++) SetCountryColor(id, LandColor);
+    }
+
+    // 変えた絵を Texture に送る（1 フレームに 1 回呼ぶ）
+    public void Flush()
+    {
+        if (!dirty) return;
+        dirty = false;
         Texture.SetPixels32(pixels);
         Texture.Apply();
     }

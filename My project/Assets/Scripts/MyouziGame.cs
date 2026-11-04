@@ -5,7 +5,8 @@ using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 // 名字ワールドの画面と操作。シーンを再生すると自動で起動する（シーンに置く必要なし）。
-// 名字を入力する画面 → 世界地図の画面（地図のデータと絵は WorldMap.cs）。
+// 名字を入力する画面 → 世界地図の画面（地図のデータと絵は WorldMap.cs、広がり方のルールは NameSpread.cs）。
+// 地図の画面は「最初の国を選ぶ」→「時間が進んで名字が広がる」の順に進む。
 public class MyouziGame : MonoBehaviour
 {
     // プレイヤーが決めた名字（ほかの画面からも読めるようにしておく）
@@ -30,9 +31,21 @@ public class MyouziGame : MonoBehaviour
     float zoom = 1f;
     bool dragging;           // 地図の上で右ボタンを押して、ドラッグしている途中
     const float MaxZoom = 8f;
-    Text titleText, worldText, infoText;
+    Text titleText, worldText, infoText, dateText;
     WorldMap map;
     int hoverId, selectId;
+
+    // ---- ゲームの進み ----
+    NameSpread spread;
+    bool playing;            // false = 最初の国を選んでいるところ
+    GameObject startButton;  // 「この国から始める」
+    GameObject speedButtons; // 停止・普通・速い
+    Image[] speedImages;
+    static readonly float[] Speeds = { 0f, 2f, 10f };          // 1 秒に進む日数
+    static readonly string[] SpeedNames = { "停止", "普通", "速い" };
+    int speedIndex = 1;
+    float dayTimer;
+    static readonly Color SpeedOff = new Color(0.45f, 0.48f, 0.55f);
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void Boot()
@@ -104,14 +117,100 @@ public class MyouziGame : MonoBehaviour
     {
         entryPanel.SetActive(false);
         mapPanel.SetActive(true);
-        titleText.text = "「" + Surname + "」家の世界進出";
+        ResetView();
+
+        // 最初の国を選ぶところから
+        playing = false;
+        selectId = 0;
         if (map != null)
         {
-            worldText.text = "世界の人口 " + WorldMap.FormatPeople(map.WorldPopulation)
-                           + "\n「" + Surname + "」さん 0人";
+            spread = new NameSpread(map.Countries);
+            map.ResetColors();
+            map.SetHighlight(hoverId, 0);
+            map.Flush();
         }
-        ResetView();
+        titleText.text = "最初の「" + Surname + "」さんが生まれる国を選ぼう";
+        dateText.text = "";
+        worldText.text = "";
+        startButton.SetActive(true);
+        speedButtons.SetActive(false);
         UpdateInfo();
+    }
+
+    // 選んだ国で最初の 1 人が生まれ、時間が進み始める
+    void StartGame()
+    {
+        if (map == null) return;
+        if (map.Get(selectId) == null)
+        {
+            infoText.text = "先に地図で国をクリックして選んでください";
+            return;
+        }
+        spread.Start(selectId);
+        playing = true;
+        dayTimer = 0;
+        SetSpeed(1);
+        titleText.text = "「" + Surname + "」家の世界進出";
+        startButton.SetActive(false);
+        speedButtons.SetActive(true);
+        map.SetHighlight(hoverId, 0); // 始めたら、選んだ国もオレンジでなく名字の色で見せる
+        RefreshColors();
+        RefreshTexts();
+    }
+
+    void SetSpeed(int index)
+    {
+        speedIndex = index;
+        for (int k = 0; k < speedImages.Length; k++) speedImages[k].color = k == index ? Accent : SpeedOff;
+    }
+
+    // 1 日ずつ進める
+    void Tick()
+    {
+        dayTimer += Time.deltaTime * Speeds[speedIndex];
+        int steps = 0;
+        while (dayTimer >= 1f && steps < 30)
+        {
+            spread.Step();
+            dayTimer -= 1f;
+            steps++;
+        }
+        if (dayTimer >= 1f) dayTimer = 0f; // 追いつけないほど遅れたら、残りは捨てる
+        if (steps > 0)
+        {
+            RefreshColors();
+            RefreshTexts();
+        }
+    }
+
+    // 国の色: 名字の人の割合が増えるほど黄緑から紫に近づく。1 人でもいれば少し色が付く
+    void RefreshColors()
+    {
+        foreach (var c in map.Countries)
+        {
+            double share = spread.Share(c);
+            if (spread.People(c.id) < 1) continue;
+            float t = Mathf.Lerp(0.2f, 1f, Mathf.Sqrt((float)share));
+            t = Mathf.Round(t * 32f) / 32f; // 少しずつ変わるたびに描き直さないよう、32 段階にする
+            map.SetCountryColor(c.id, Color32.Lerp(WorldMap.LandColor, WorldMap.PlayerColor, t));
+        }
+    }
+
+    void RefreshTexts()
+    {
+        dateText.text = spread.Day + "日目";
+        worldText.text = "「" + Surname + "」さん " + WorldMap.FormatPeople((long)spread.Total)
+                       + "\n世界の " + FormatShare(spread.WorldShare)
+                       + "\n世界の人口 " + WorldMap.FormatPeople(spread.WorldPopulation);
+        UpdateInfo();
+    }
+
+    static string FormatShare(double share)
+    {
+        double p = share * 100;
+        if (p >= 99.995) return "100%";
+        if (p < 0.01) return "0.01%未満";
+        return p < 10 ? p.ToString("F2") + "%" : p.ToString("F1") + "%";
     }
 
     void ResetView()
@@ -124,8 +223,13 @@ public class MyouziGame : MonoBehaviour
     void Update()
     {
         if (map == null || mapPanel == null || !mapPanel.activeSelf) return;
+        if (playing) Tick();
         var mouse = Mouse.current;
-        if (mouse == null) return;
+        if (mouse == null)
+        {
+            map.Flush();
+            return;
+        }
 
         // マウスの下にある国を調べる
         WorldMap.Country c = null;
@@ -168,9 +272,10 @@ public class MyouziGame : MonoBehaviour
         {
             hoverId = hover;
             selectId = select;
-            map.SetHighlight(hoverId, selectId);
+            map.SetHighlight(hoverId, playing ? 0 : selectId);
             UpdateInfo();
         }
+        map.Flush();
     }
 
     // 地図の外の白い部分が見えないように、動かせる範囲を決める
@@ -193,11 +298,15 @@ public class MyouziGame : MonoBehaviour
         var c = map.Get(selectId) ?? map.Get(hoverId);
         if (c == null)
         {
-            infoText.text = "国にマウスを乗せると名前と人口。クリックで選ぶ\nホイールで拡大・縮小、右ドラッグで移動";
+            infoText.text = playing
+                ? "国にマウスを乗せるかクリックすると、その国の様子が出ます\nホイールで拡大・縮小、右ドラッグで移動"
+                : "国をクリックして選び、右下の「この国から始める」を押してください\nホイールで拡大・縮小、右ドラッグで移動";
             return;
         }
+        var people = spread != null ? spread.People(c.id) : 0;
         infoText.text = c.name + "（" + c.continent + "）\n人口 " + WorldMap.FormatPeople(c.population)
-                      + "\n「" + Surname + "」さん 0人";
+                      + "\n「" + Surname + "」さん " + WorldMap.FormatPeople((long)people)
+                      + (people >= 1 ? "（" + FormatShare(spread.Share(c)) + "）" : "");
     }
 
     // 入力欄で Enter を押したときも決定する。
@@ -267,12 +376,26 @@ public class MyouziGame : MonoBehaviour
         if (map != null) raw.texture = map.Texture;
 
         var header = MakeBar(mapPanel.transform, "Header", true, 70, Background);
-        titleText = MakeText(header, "", 34, Accent, new Vector2(30, 0), new Vector2(700, 60), new Vector2(0, 0.5f), TextAnchor.MiddleLeft);
+        titleText = MakeText(header, "", 30, Accent, new Vector2(30, 0), new Vector2(590, 60), new Vector2(0, 0.5f), TextAnchor.MiddleLeft);
         MakeButton(header, "名字を変える", new Vector2(-20, 0), new Vector2(200, 50), BackToEntry, new Vector2(1, 0.5f));
+        dateText = MakeText(header, "", 30, TextColor, new Vector2(-500, 0), new Vector2(140, 60), new Vector2(1, 0.5f), TextAnchor.MiddleRight);
+
+        // 速さの切りかえ（停止・普通・速い）
+        speedButtons = new GameObject("SpeedButtons");
+        Place(speedButtons, header, new Vector2(-240, 0), new Vector2(250, 50), new Vector2(1, 0.5f));
+        speedImages = new Image[Speeds.Length];
+        for (int k = 0; k < Speeds.Length; k++)
+        {
+            int index = k;
+            var b = MakeButton(speedButtons.transform, SpeedNames[k], new Vector2(k * 85, 0), new Vector2(80, 44),
+                               () => SetSpeed(index), new Vector2(0, 0.5f));
+            speedImages[k] = b.GetComponent<Image>();
+        }
 
         var footer = MakeBar(mapPanel.transform, "Footer", false, 110, Background);
-        infoText = MakeText(footer, "", 26, TextColor, new Vector2(30, 0), new Vector2(760, 100), new Vector2(0, 0.5f), TextAnchor.MiddleLeft);
-        worldText = MakeText(footer, "", 26, TextColor, new Vector2(-30, 0), new Vector2(440, 100), new Vector2(1, 0.5f), TextAnchor.MiddleRight);
+        infoText = MakeText(footer, "", 24, TextColor, new Vector2(30, 0), new Vector2(760, 100), new Vector2(0, 0.5f), TextAnchor.MiddleLeft);
+        worldText = MakeText(footer, "", 24, TextColor, new Vector2(-30, 0), new Vector2(440, 100), new Vector2(1, 0.5f), TextAnchor.MiddleRight);
+        startButton = MakeButton(footer, "この国から始める", new Vector2(-30, 0), new Vector2(300, 64), StartGame, new Vector2(1, 0.5f)).gameObject;
         mapPanel.SetActive(false);
     }
 
@@ -372,8 +495,8 @@ public class MyouziGame : MonoBehaviour
         return input;
     }
 
-    void MakeButton(Transform parent, string label, Vector2 pos, Vector2 box, UnityEngine.Events.UnityAction onClick,
-                    Vector2? anchor = null)
+    Button MakeButton(Transform parent, string label, Vector2 pos, Vector2 box, UnityEngine.Events.UnityAction onClick,
+                      Vector2? anchor = null)
     {
         var go = new GameObject("Button");
         Place(go, parent, pos, box, anchor);
@@ -392,9 +515,11 @@ public class MyouziGame : MonoBehaviour
         rt.offsetMax = Vector2.zero;
         var t = tg.AddComponent<Text>();
         t.font = font;
-        t.fontSize = 30;
+        t.fontSize = Mathf.Min(30, (int)(box.y * 0.55f));
         t.color = new Color(0.12f, 0.1f, 0.05f);
         t.alignment = TextAnchor.MiddleCenter;
+        t.raycastTarget = false;
         t.text = label;
+        return b;
     }
 }
