@@ -23,7 +23,13 @@ public class MyouziGame : MonoBehaviour
     Text messageText;
     GameObject entryPanel;
     GameObject mapPanel;
-    RectTransform mapRect;
+    RectTransform mapRect;   // 地図の絵（拡大・移動はこれの大きさと位置を変える）
+    RectTransform fitRect;   // 地図がちょうど収まる枠（拡大していないときの地図の大きさ）
+    RectTransform areaRect;  // 地図を見せる窓（上下の帯の間）
+    Canvas canvas;
+    float zoom = 1f;
+    bool dragging;           // 地図の上で右ボタンを押して、ドラッグしている途中
+    const float MaxZoom = 8f;
     Text titleText, worldText, infoText;
     WorldMap map;
     int hoverId, selectId;
@@ -104,7 +110,15 @@ public class MyouziGame : MonoBehaviour
             worldText.text = "世界の人口 " + WorldMap.FormatPeople(map.WorldPopulation)
                            + "\n「" + Surname + "」さん 0人";
         }
+        ResetView();
         UpdateInfo();
+    }
+
+    void ResetView()
+    {
+        zoom = 1f;
+        mapRect.localScale = Vector3.one;
+        mapRect.anchoredPosition = Vector2.zero;
     }
 
     void Update()
@@ -116,7 +130,8 @@ public class MyouziGame : MonoBehaviour
         // マウスの下にある国を調べる
         WorldMap.Country c = null;
         bool onMap = false;
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(mapRect, mouse.position.ReadValue(), null, out var local))
+        bool inWindow = RectTransformUtility.RectangleContainsScreenPoint(areaRect, mouse.position.ReadValue(), null);
+        if (inWindow && RectTransformUtility.ScreenPointToLocalPointInRectangle(mapRect, mouse.position.ReadValue(), null, out var local))
         {
             var r = mapRect.rect;
             var uv = new Vector2((local.x - r.x) / r.width, (local.y - r.y) / r.height);
@@ -124,6 +139,26 @@ public class MyouziGame : MonoBehaviour
             c = map.CountryAt(uv);
         }
         int hover = c != null ? c.id : 0;
+
+        // ホイールで拡大・縮小（マウスの下の場所を動かさずに）。右ボタンを押しながらドラッグで移動
+        float wheel = mouse.scroll.ReadValue().y;
+        if (wheel != 0 && RectTransformUtility.ScreenPointToLocalPointInRectangle(fitRect, mouse.position.ReadValue(), null, out var cursor)
+            && fitRect.rect.Contains(cursor))
+        {
+            float newZoom = Mathf.Clamp(zoom * (wheel > 0 ? 1.25f : 0.8f), 1f, MaxZoom);
+            var pos = mapRect.anchoredPosition;
+            var onMapPoint = (cursor - pos) / zoom;
+            zoom = newZoom;
+            mapRect.localScale = new Vector3(zoom, zoom, 1f);
+            mapRect.anchoredPosition = ClampPan(cursor - onMapPoint * zoom);
+        }
+        if (mouse.rightButton.wasPressedThisFrame) dragging = inWindow;
+        if (!mouse.rightButton.isPressed) dragging = false;
+        if (dragging)
+        {
+            var d = mouse.delta.ReadValue() / canvas.scaleFactor;
+            if (d != Vector2.zero) mapRect.anchoredPosition = ClampPan(mapRect.anchoredPosition + d);
+        }
 
         // 地図の上のクリックでその国を選ぶ（海をクリックすると選ぶのをやめる）
         int select = selectId;
@@ -138,6 +173,15 @@ public class MyouziGame : MonoBehaviour
         }
     }
 
+    // 地図の外の白い部分が見えないように、動かせる範囲を決める
+    Vector2 ClampPan(Vector2 p)
+    {
+        var size = fitRect.rect.size;
+        float mx = size.x * (zoom - 1f) / 2f;
+        float my = size.y * (zoom - 1f) / 2f;
+        return new Vector2(Mathf.Clamp(p.x, -mx, mx), Mathf.Clamp(p.y, -my, my));
+    }
+
     // 左下の欄に、選んだ国（無ければマウスの下の国）の情報を出す
     void UpdateInfo()
     {
@@ -149,7 +193,7 @@ public class MyouziGame : MonoBehaviour
         var c = map.Get(selectId) ?? map.Get(hoverId);
         if (c == null)
         {
-            infoText.text = "国にマウスを乗せると、名前と人口が出ます。クリックで選べます";
+            infoText.text = "国にマウスを乗せると名前と人口。クリックで選ぶ\nホイールで拡大・縮小、右ドラッグで移動";
             return;
         }
         infoText.text = c.name + "（" + c.continent + "）\n人口 " + WorldMap.FormatPeople(c.population)
@@ -176,7 +220,7 @@ public class MyouziGame : MonoBehaviour
         }
 
         var canvasGo = new GameObject("UI");
-        var canvas = canvasGo.AddComponent<Canvas>();
+        canvas = canvasGo.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         var scaler = canvasGo.AddComponent<CanvasScaler>();
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
@@ -201,20 +245,26 @@ public class MyouziGame : MonoBehaviour
         // 地図は上の帯（70）と下の帯（110）の間に、縦横の比を保って最大の大きさで置く
         var area = MakePanel(mapPanel.transform, "MapArea");
         var areaRt = area.GetComponent<RectTransform>();
+        areaRect = areaRt;
         areaRt.offsetMin = new Vector2(10, 110);
         areaRt.offsetMax = new Vector2(-10, -70);
-        var mapGo = new GameObject("Map");
-        mapGo.transform.SetParent(area.transform, false);
-        mapRect = mapGo.AddComponent<RectTransform>();
-        var raw = mapGo.AddComponent<RawImage>();
-        raw.raycastTarget = false;
+        area.AddComponent<RectMask2D>(); // 拡大したとき、はみ出た分を隠す
+
+        var fitGo = new GameObject("MapFit");
+        fitGo.transform.SetParent(area.transform, false);
+        fitRect = fitGo.AddComponent<RectTransform>();
         if (map != null)
         {
-            raw.texture = map.Texture;
-            var fitter = mapGo.AddComponent<AspectRatioFitter>();
+            var fitter = fitGo.AddComponent<AspectRatioFitter>();
             fitter.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
             fitter.aspectRatio = (float)map.Width / map.Height;
         }
+
+        var mapGo = MakePanel(fitGo.transform, "Map");
+        mapRect = mapGo.GetComponent<RectTransform>();
+        var raw = mapGo.AddComponent<RawImage>();
+        raw.raycastTarget = false;
+        if (map != null) raw.texture = map.Texture;
 
         var header = MakeBar(mapPanel.transform, "Header", true, 70, Background);
         titleText = MakeText(header, "", 34, Accent, new Vector2(30, 0), new Vector2(700, 60), new Vector2(0, 0.5f), TextAnchor.MiddleLeft);
