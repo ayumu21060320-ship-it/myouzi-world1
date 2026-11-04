@@ -8,7 +8,8 @@ using UnityEngine.UI;
 // 名字ワールドの画面と操作。シーンを再生すると自動で起動する（シーンに置く必要なし）。
 // 名字を入力する画面 → 世界地図の画面（地図のデータと絵は WorldMap.cs、広がり方のルールは NameSpread.cs）。
 // 地図の画面は「最初の国を選ぶ」→「時間が進んで名字が広がる」の順に進む。
-public class MyouziGame : MonoBehaviour
+// 遊んでいる間の画面（ポイントのマーク・線・ニュース・強化パネル）は MyouziGamePlay.cs。
+public partial class MyouziGame : MonoBehaviour
 {
     // プレイヤーが決めた名字（ほかの画面からも読めるようにしておく）
     public static string Surname { get; private set; } = "";
@@ -125,9 +126,11 @@ public class MyouziGame : MonoBehaviour
         // 最初の国を選ぶところから
         playing = false;
         selectId = 0;
+        ClearEffects();
+        SetPlayingLayout(false);
         if (map != null)
         {
-            spread = new NameSpread(map.Countries);
+            spread.Reset();
             map.ResetColors();
             map.SetHighlight(hoverId, 0);
             map.Flush();
@@ -189,9 +192,11 @@ public class MyouziGame : MonoBehaviour
         titleText.text = "「" + Surname + "」家の世界進出";
         startButton.SetActive(false);
         speedButtons.SetActive(true);
-        map.SetHighlight(hoverId, 0); // 始めたら、選んだ国もオレンジでなく名字の色で見せる
+        SetPlayingLayout(true);
+        AddNews("1日目　「" + Surname + "」家の世界進出が始まった！ 紫の「バズ」をクリックしてポイントを集めよう");
         RefreshColors();
         RefreshTexts();
+        RefreshPanel();
     }
 
     void SetSpeed(int index)
@@ -208,6 +213,7 @@ public class MyouziGame : MonoBehaviour
         while (dayTimer >= 1f && steps < 30)
         {
             spread.Step();
+            HandleDayEvents();
             dayTimer -= 1f;
             steps++;
         }
@@ -216,6 +222,7 @@ public class MyouziGame : MonoBehaviour
         {
             RefreshColors();
             RefreshTexts();
+            RefreshPanel();
         }
     }
 
@@ -243,7 +250,7 @@ public class MyouziGame : MonoBehaviour
         worldText.text = "「" + Surname + "」さん " + WorldMap.FormatPeople((long)spread.Total)
                        + "（世界の " + FormatShare(spread.WorldShare) + "）"
                        + "\n世界の人口 " + WorldMap.FormatPeople(spread.WorldPopulation)
-                       + "\n話題性 ×" + spread.Buzz.ToString("F2");
+                       + "\n" + spread.CountriesReached + "か国・話題性 ×" + spread.Buzz.ToString("F2");
         UpdateInfo();
     }
 
@@ -266,6 +273,7 @@ public class MyouziGame : MonoBehaviour
     {
         if (map == null || mapPanel == null || !mapPanel.activeSelf) return;
         if (playing) Tick();
+        UpdateEffects();
         var mouse = Mouse.current;
         if (mouse == null)
         {
@@ -306,16 +314,21 @@ public class MyouziGame : MonoBehaviour
             if (d != Vector2.zero) mapRect.anchoredPosition = ClampPan(mapRect.anchoredPosition + d);
         }
 
-        // 地図の上のクリックでその国を選ぶ（海をクリックすると選ぶのをやめる）
+        // 地図の上のクリック: マークがあれば拾う。無ければその国を選ぶ（海をクリックすると選ぶのをやめる）
         int select = selectId;
-        if (mouse.leftButton.wasPressedThisFrame && onMap) select = hover;
+        if (mouse.leftButton.wasPressedThisFrame && inWindow)
+        {
+            if (!(playing && TryCollectBubble(mouse.position.ReadValue())) && onMap) select = hover;
+        }
 
         if (hover != hoverId || select != selectId)
         {
+            bool selectChanged = select != selectId;
             hoverId = hover;
             selectId = select;
-            map.SetHighlight(hoverId, playing ? 0 : selectId);
+            map.SetHighlight(hoverId, selectId);
             UpdateInfo();
+            if (selectChanged) RefreshPanel();
         }
         map.Flush();
     }
@@ -341,7 +354,7 @@ public class MyouziGame : MonoBehaviour
         if (c == null)
         {
             infoText.text = playing
-                ? "国にマウスを乗せるかクリックすると、その国の様子が出ます\nホイールで拡大・縮小、右ドラッグで移動"
+                ? "国をクリックで選ぶと、その国の様子が出て、右のパネルで宣伝できます\nホイールで拡大・縮小、右ドラッグで移動"
                 : knownStart.Count > 0
                     ? "紫の国に最初から「" + Surname + "」さんがいます。右上のボタンで始めます\nホイールで拡大・縮小、右ドラッグで移動"
                     : "国をクリックして選び、右上の「この国から始める」を押してください\nホイールで拡大・縮小、右ドラッグで移動";
@@ -351,7 +364,8 @@ public class MyouziGame : MonoBehaviour
         if (!playing && knownStart.TryGetValue(c.id, out var known)) people = known;
         infoText.text = c.name + "（" + c.continent + "）\n人口 " + WorldMap.FormatPeople(c.population)
                       + "\n「" + Surname + "」さん " + WorldMap.FormatPeople((long)people)
-                      + (people >= 1 ? "（" + FormatShare(people / c.population) + "）" : "");
+                      + (people >= 1 ? "（" + FormatShare(people / c.population) + "）" : "")
+                      + (playing && spread.Campaigning(c.id) ? "　宣伝中" : "");
     }
 
     // 入力欄で Enter を押したときも決定する。
@@ -419,6 +433,7 @@ public class MyouziGame : MonoBehaviour
         var raw = mapGo.AddComponent<RawImage>();
         raw.raycastTarget = false;
         if (map != null) raw.texture = map.Texture;
+        if (map != null) spread = new NameSpread(map.Countries);
 
         var header = MakeBar(mapPanel.transform, "Header", true, 70, Background);
         titleText = MakeText(header, "", 30, Accent, new Vector2(30, 0), new Vector2(590, 60), new Vector2(0, 0.5f), TextAnchor.MiddleLeft);
@@ -444,6 +459,7 @@ public class MyouziGame : MonoBehaviour
         var sb = MakeButton(header, "この国から始める", new Vector2(-240, 0), new Vector2(250, 50), StartGame, new Vector2(1, 0.5f));
         startButton = sb.gameObject;
         startLabel = sb.GetComponentInChildren<Text>();
+        if (spread != null) BuildPlayUI(mapGo.transform, area.transform, mapPanel.transform);
         mapPanel.SetActive(false);
     }
 

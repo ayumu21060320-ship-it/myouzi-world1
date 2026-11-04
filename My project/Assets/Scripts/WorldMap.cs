@@ -17,6 +17,7 @@ public class WorldMap
         public long population;
         public string continent;
         public int labelX, labelY; // 名前を出す位置（地図のピクセル。上が 0）
+        public int[] neighbors;    // 近い国（国境で接する国と、海をはさんで近い国）の番号
     }
 
     [Serializable]
@@ -122,8 +123,8 @@ public class WorldMap
         if (v == Ocean) return SeaColor;
         if (edge[i]) return LineColor;
         if (v == NoPeople) return EmptyLandColor;
-        if (v == selectId) return SelectColor;
         var c = countryColor[v];
+        if (v == selectId) return Color32.Lerp(c, SelectColor, 0.6f); // 選んだ国はオレンジがかる
         if (v == hoverId) return Color32.Lerp(c, new Color32(255, 255, 255, 255), 0.35f); // マウスの下は明るく
         return c;
     }
