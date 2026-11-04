@@ -10,7 +10,30 @@
    "population": 1397715000,
    "continent": "アジア",
    "labelX": 775,
-   "labelY": 292
+   "labelY": 292,
+   "neighbors": [
+    2,
+    5,
+    8,
+    9,
+    15,
+    20,
+    26,
+    37,
+    42,
+    49,
+    54,
+    56,
+    64,
+    96,
+    103,
+    104,
+    111,
+    136,
+    166,
+    168,
+    227
+   ]
   },
   {
    "id": 2,
@@ -20,7 +43,19 @@
    "population": 1366417754,
    "continent": "アジア",
    "labelX": 622,
-   "labelY": 348
+   "labelY": 348,
+   "neighbors": [
+    1,
+    4,
+    5,
+    8,
+    26,
+    37,
+    49,
+    58,
+    166,
+    227
+   ]
   },
   {
    "id": 3,
@@ -30,7 +65,14 @@
    "population": 328239523,
    "continent": "北アメリカ",
    "labelX": 1664,
-   "labelY": 252
+   "labelY": 252,
+   "neighbors": [
+    9,
+    10,
+    39,
+    81,
+    178
+   ]
   },
   {
    "id": 4,
@@ -40,7 +82,18 @@
    "population": 270625568,
    "continent": "アジア",
    "labelX": 750,
-   "labelY": 483
+   "labelY": 483,
+   "neighbors": [
+    2,
+    13,
+    20,
+    44,
+    55,
+    99,
+    116,
+    158,
+    176
+   ]
   },
   {
    "id": 5,
@@ -50,7 +103,15 @@
    "population": 216565318,
    "continent": "アジア",
    "labelX": 560,
-   "labelY": 310
+   "labelY": 310,
+   "neighbors": [
+    1,
+    2,
+    19,
+    37,
+    96,
+    227
+   ]
   },
   {
    "id": 6,
@@ -60,7 +121,19 @@
    "population": 211049527,
    "continent": "南アメリカ",
    "labelX": 1936,
-   "labelY": 546
+   "labelY": 546,
+   "neighbors": [
+    21,
+    29,
+    31,
+    43,
+    50,
+    79,
+    105,
+    134,
+    165,
+    172
+   ]
   },
   {
    "id": 7,
@@ -70,7 +143,18 @@
    "population": 200963599,
    "continent": "アフリカ",
    "labelX": 213,
-   "labelY": 424
+   "labelY": 424,
+   "neighbors": [
+    46,
+    52,
+    57,
+    59,
+    60,
+    72,
+    76,
+    101,
+    156
+   ]
   },
   {
    "id": 8,
@@ -80,7 +164,14 @@
    "population": 163046161,
    "continent": "アジア",
    "labelX": 680,
-   "labelY": 340
+   "labelY": 340,
+   "neighbors": [
+    1,
+    2,
+    26,
+    49,
+    166
+   ]
   },
   {
    "id": 9,
@@ -90,7 +181,28 @@
    "population": 144373535,
    "continent": "ヨーロッパ",
    "labelX": 424,
-   "labelY": 146
+   "labelY": 146,
+   "neighbors": [
+    1,
+    3,
+    11,
+    17,
+    19,
+    32,
+    38,
+    54,
+    64,
+    91,
+    95,
+    117,
+    120,
+    133,
+    136,
+    138,
+    142,
+    152,
+    157
+   ]
   },
   {
    "id": 10,
@@ -100,7 +212,15 @@
    "population": 127575529,
    "continent": "北アメリカ",
    "labelX": 1636,
-   "labelY": 341
+   "labelY": 341,
+   "neighbors": [
+    3,
+    69,
+    81,
+    94,
+    112,
+    177
+   ]
   },
   {
    "id": 11,
@@ -110,7 +230,12 @@
    "population": 126264931,
    "continent": "アジア",
    "labelX": 958,
-   "labelY": 272
+   "labelY": 272,
+   "neighbors": [
+    9,
+    28,
+    56
+   ]
   },
   {
    "id": 12,
@@ -120,7 +245,18 @@
    "population": 112078730,
    "continent": "アフリカ",
    "labelX": 393,
-   "labelY": 432
+   "labelY": 432,
+   "neighbors": [
+    27,
+    33,
+    35,
+    48,
+    83,
+    89,
+    113,
+    121,
+    162
+   ]
   },
   {
    "id": 13,
@@ -130,7 +266,12 @@
    "population": 108116615,
    "continent": "アジア",
    "labelX": 867,
-   "labelY": 414
+   "labelY": 414,
+   "neighbors": [
+    4,
+    44,
+    56
+   ]
   },
   {
    "id": 14,
@@ -140,7 +281,15 @@
    "population": 100388073,
    "continent": "アフリカ",
    "labelX": 338,
-   "labelY": 328
+   "labelY": 328,
+   "neighbors": [
+    35,
+    41,
+    90,
+    97,
+    109,
+    128
+   ]
   },
   {
    "id": 15,
@@ -150,7 +299,14 @@
    "population": 96462106,
    "continent": "アジア",
    "labelX": 770,
-   "labelY": 354
+   "labelY": 354,
+   "neighbors": [
+    1,
+    20,
+    26,
+    70,
+    104
+   ]
   },
   {
    "id": 16,
@@ -160,7 +316,22 @@
    "population": 86790567,
    "continent": "アフリカ",
    "labelX": 304,
-   "labelY": 488
+   "labelY": 488,
+   "neighbors": [
+    25,
+    33,
+    45,
+    47,
+    52,
+    65,
+    73,
+    75,
+    78,
+    83,
+    119,
+    127,
+    147
+   ]
   },
   {
    "id": 17,
@@ -170,7 +341,22 @@
    "population": 83429615,
    "continent": "アジア",
    "labelX": 366,
-   "labelY": 253
+   "labelY": 253,
+   "neighbors": [
+    9,
+    19,
+    36,
+    61,
+    68,
+    85,
+    91,
+    106,
+    108,
+    133,
+    138,
+    160,
+    180
+   ]
   },
   {
    "id": 18,
@@ -180,7 +366,22 @@
    "population": 83132799,
    "continent": "ヨーロッパ",
    "labelX": 225,
-   "labelY": 187
+   "labelY": 187,
+   "neighbors": [
+    21,
+    23,
+    38,
+    67,
+    80,
+    86,
+    87,
+    98,
+    100,
+    115,
+    149,
+    170,
+    215
+   ]
   },
   {
    "id": 19,
@@ -190,7 +391,24 @@
    "population": 82913906,
    "continent": "アジア",
    "labelX": 483,
-   "labelY": 294
+   "labelY": 294,
+   "neighbors": [
+    5,
+    9,
+    17,
+    36,
+    37,
+    41,
+    91,
+    92,
+    114,
+    123,
+    131,
+    133,
+    138,
+    141,
+    154
+   ]
   },
   {
    "id": 20,
@@ -200,7 +418,16 @@
    "population": 69625582,
    "continent": "アジア",
    "labelX": 745,
-   "labelY": 389
+   "labelY": 389,
+   "neighbors": [
+    1,
+    4,
+    15,
+    26,
+    44,
+    70,
+    104
+   ]
   },
   {
    "id": 21,
@@ -210,7 +437,36 @@
    "population": 67059887,
    "continent": "ヨーロッパ",
    "labelX": 185,
-   "labelY": 212
+   "labelY": 212,
+   "neighbors": [
+    6,
+    18,
+    22,
+    23,
+    30,
+    67,
+    80,
+    98,
+    100,
+    159,
+    164,
+    170,
+    172,
+    183,
+    187,
+    193,
+    194,
+    199,
+    201,
+    202,
+    205,
+    210,
+    213,
+    216,
+    222,
+    226,
+    229
+   ]
   },
   {
    "id": 22,
@@ -220,7 +476,16 @@
    "population": 66834405,
    "continent": "ヨーロッパ",
    "labelX": 158,
-   "labelY": 168
+   "labelY": 168,
+   "neighbors": [
+    21,
+    67,
+    80,
+    124,
+    194,
+    200,
+    205
+   ]
   },
   {
    "id": 23,
@@ -230,7 +495,27 @@
    "population": 60297396,
    "continent": "ヨーロッパ",
    "labelX": 233,
-   "labelY": 223
+   "labelY": 223,
+   "neighbors": [
+    18,
+    21,
+    34,
+    77,
+    85,
+    98,
+    100,
+    132,
+    135,
+    140,
+    149,
+    150,
+    169,
+    175,
+    213,
+    215,
+    217,
+    236
+   ]
   },
   {
    "id": 24,
@@ -240,7 +525,15 @@
    "population": 58558270,
    "continent": "アフリカ",
    "labelX": 305,
-   "labelY": 646
+   "labelY": 646,
+   "neighbors": [
+    47,
+    73,
+    144,
+    146,
+    148,
+    161
+   ]
   },
   {
    "id": 25,
@@ -250,7 +543,17 @@
    "population": 58005463,
    "continent": "アフリカ",
    "labelX": 369,
-   "labelY": 512
+   "labelY": 512,
+   "neighbors": [
+    16,
+    27,
+    33,
+    47,
+    63,
+    65,
+    75,
+    78
+   ]
   },
   {
    "id": 26,
@@ -260,7 +563,15 @@
    "population": 54045420,
    "continent": "アジア",
    "labelX": 715,
-   "labelY": 355
+   "labelY": 355,
+   "neighbors": [
+    1,
+    2,
+    8,
+    15,
+    20,
+    104
+   ]
   },
   {
    "id": 27,
@@ -270,7 +581,14 @@
    "population": 52573973,
    "continent": "アフリカ",
    "labelX": 386,
-   "labelY": 474
+   "labelY": 474,
+   "neighbors": [
+    12,
+    25,
+    33,
+    83,
+    89
+   ]
   },
   {
    "id": 28,
@@ -280,7 +598,11 @@
    "population": 51709098,
    "continent": "アジア",
    "labelX": 899,
-   "labelY": 270
+   "labelY": 270,
+   "neighbors": [
+    11,
+    54
+   ]
   },
   {
    "id": 29,
@@ -290,7 +612,16 @@
    "population": 50339443,
    "continent": "南アメリカ",
    "labelX": 1802,
-   "labelY": 458
+   "labelY": 458,
+   "neighbors": [
+    6,
+    43,
+    50,
+    66,
+    130,
+    189,
+    196
+   ]
   },
   {
    "id": 30,
@@ -300,7 +631,14 @@
    "population": 47076781,
    "continent": "ヨーロッパ",
    "labelX": 150,
-   "labelY": 249
+   "labelY": 249,
+   "neighbors": [
+    21,
+    34,
+    40,
+    88,
+    201
+   ]
   },
   {
    "id": 31,
@@ -310,7 +648,14 @@
    "population": 44938712,
    "continent": "南アメリカ",
    "labelX": 1853,
-   "labelY": 668
+   "labelY": 668,
+   "neighbors": [
+    6,
+    62,
+    79,
+    105,
+    134
+   ]
   },
   {
    "id": 32,
@@ -320,7 +665,18 @@
    "population": 44385155,
    "continent": "ヨーロッパ",
    "labelX": 353,
-   "labelY": 194
+   "labelY": 194,
+   "neighbors": [
+    9,
+    38,
+    61,
+    93,
+    95,
+    106,
+    118,
+    142,
+    143
+   ]
   },
   {
    "id": 33,
@@ -330,7 +686,16 @@
    "population": 44269594,
    "continent": "アフリカ",
    "labelX": 358,
-   "labelY": 466
+   "labelY": 466,
+   "neighbors": [
+    12,
+    16,
+    25,
+    27,
+    75,
+    78,
+    83
+   ]
   },
   {
    "id": 34,
@@ -340,7 +705,18 @@
    "population": 43053054,
    "continent": "アフリカ",
    "labelX": 186,
-   "labelY": 321
+   "labelY": 321,
+   "neighbors": [
+    23,
+    30,
+    40,
+    57,
+    60,
+    77,
+    109,
+    129,
+    171
+   ]
   },
   {
    "id": 35,
@@ -350,7 +726,17 @@
    "population": 42813238,
    "continent": "アフリカ",
    "labelX": 337,
-   "labelY": 384
+   "labelY": 384,
+   "neighbors": [
+    12,
+    14,
+    41,
+    72,
+    83,
+    109,
+    113,
+    127
+   ]
   },
   {
    "id": 36,
@@ -360,7 +746,17 @@
    "population": 39309783,
    "continent": "アジア",
    "labelX": 416,
-   "labelY": 289
+   "labelY": 289,
+   "neighbors": [
+    17,
+    19,
+    41,
+    68,
+    90,
+    91,
+    131,
+    138
+   ]
   },
   {
    "id": 37,
@@ -370,7 +766,17 @@
    "population": 38041754,
    "continent": "アジア",
    "labelX": 548,
-   "labelY": 283
+   "labelY": 283,
+   "neighbors": [
+    1,
+    2,
+    5,
+    19,
+    42,
+    96,
+    111,
+    114
+   ]
   },
   {
    "id": 38,
@@ -380,7 +786,22 @@
    "population": 37970874,
    "continent": "ヨーロッパ",
    "labelX": 281,
-   "labelY": 182
+   "labelY": 182,
+   "neighbors": [
+    9,
+    18,
+    32,
+    61,
+    86,
+    87,
+    93,
+    95,
+    98,
+    115,
+    118,
+    142,
+    152
+   ]
   },
   {
    "id": 39,
@@ -390,7 +811,12 @@
    "population": 37589262,
    "continent": "北アメリカ",
    "labelX": 1638,
-   "labelY": 134
+   "labelY": 134,
+   "neighbors": [
+    3,
+    208,
+    228
+   ]
   },
   {
    "id": 40,
@@ -400,7 +826,14 @@
    "population": 36471769,
    "continent": "アフリカ",
    "labelX": 129,
-   "labelY": 297
+   "labelY": 297,
+   "neighbors": [
+    30,
+    34,
+    88,
+    129,
+    171
+   ]
   },
   {
    "id": 41,
@@ -410,7 +843,25 @@
    "population": 34268528,
    "continent": "アジア",
    "labelX": 424,
-   "labelY": 342
+   "labelY": 342,
+   "neighbors": [
+    14,
+    19,
+    35,
+    36,
+    48,
+    68,
+    90,
+    92,
+    97,
+    108,
+    113,
+    123,
+    128,
+    131,
+    141,
+    154
+   ]
   },
   {
    "id": 42,
@@ -420,7 +871,15 @@
    "population": 33580650,
    "continent": "アジア",
    "labelX": 534,
-   "labelY": 240
+   "labelY": 240,
+   "neighbors": [
+    1,
+    37,
+    64,
+    96,
+    111,
+    114
+   ]
   },
   {
    "id": 43,
@@ -430,7 +889,14 @@
    "population": 32510453,
    "continent": "南アメリカ",
    "labelX": 1803,
-   "labelY": 551
+   "labelY": 551,
+   "neighbors": [
+    6,
+    29,
+    62,
+    66,
+    79
+   ]
   },
   {
    "id": 44,
@@ -440,7 +906,14 @@
    "population": 31949777,
    "continent": "アジア",
    "labelX": 818,
-   "labelY": 463
+   "labelY": 463,
+   "neighbors": [
+    4,
+    13,
+    20,
+    116,
+    176
+   ]
   },
   {
    "id": 45,
@@ -450,7 +923,16 @@
    "population": 31825295,
    "continent": "アフリカ",
    "labelX": 272,
-   "labelY": 547
+   "labelY": 547,
+   "neighbors": [
+    16,
+    65,
+    73,
+    119,
+    144,
+    146,
+    147
+   ]
   },
   {
    "id": 46,
@@ -460,7 +942,16 @@
    "population": 30417856,
    "continent": "アフリカ",
    "labelX": 164,
-   "labelY": 433
+   "labelY": 433,
+   "neighbors": [
+    7,
+    53,
+    57,
+    59,
+    60,
+    76,
+    101
+   ]
   },
   {
    "id": 47,
@@ -470,7 +961,17 @@
    "population": 30366036,
    "continent": "アフリカ",
    "labelX": 385,
-   "labelY": 557
+   "labelY": 557,
+   "neighbors": [
+    16,
+    24,
+    25,
+    63,
+    65,
+    73,
+    146,
+    161
+   ]
   },
   {
    "id": 48,
@@ -480,7 +981,15 @@
    "population": 29161922,
    "continent": "アジア",
    "labelX": 431,
-   "labelY": 390
+   "labelY": 390,
+   "neighbors": [
+    12,
+    41,
+    113,
+    121,
+    123,
+    162
+   ]
   },
   {
    "id": 49,
@@ -490,7 +999,13 @@
    "population": 28608710,
    "continent": "アジア",
    "labelX": 646,
-   "labelY": 316
+   "labelY": 316,
+   "neighbors": [
+    1,
+    2,
+    8,
+    166
+   ]
   },
   {
    "id": 50,
@@ -500,7 +1015,17 @@
    "population": 28515829,
    "continent": "南アメリカ",
    "labelX": 1851,
-   "labelY": 436
+   "labelY": 436,
+   "neighbors": [
+    6,
+    29,
+    67,
+    155,
+    165,
+    189,
+    192,
+    196
+   ]
   },
   {
    "id": 51,
@@ -510,7 +1035,8 @@
    "population": 26969307,
    "continent": "アフリカ",
    "labelX": 436,
-   "labelY": 583
+   "labelY": 583,
+   "neighbors": []
   },
   {
    "id": 52,
@@ -520,7 +1046,17 @@
    "population": 25876380,
    "continent": "アフリカ",
    "labelX": 241,
-   "labelY": 451
+   "labelY": 451,
+   "neighbors": [
+    7,
+    16,
+    57,
+    72,
+    119,
+    127,
+    147,
+    156
+   ]
   },
   {
    "id": 53,
@@ -530,7 +1066,15 @@
    "population": 25716544,
    "continent": "アフリカ",
    "labelX": 138,
-   "labelY": 435
+   "labelY": 435,
+   "neighbors": [
+    46,
+    59,
+    60,
+    74,
+    102,
+    125
+   ]
   },
   {
    "id": 54,
@@ -540,7 +1084,12 @@
    "population": 25666161,
    "continent": "アジア",
    "labelX": 889,
-   "labelY": 250
+   "labelY": 250,
+   "neighbors": [
+    1,
+    9,
+    28
+   ]
   },
   {
    "id": 55,
@@ -550,7 +1099,11 @@
    "population": 25364307,
    "continent": "オセアニア",
    "labelX": 933,
-   "labelY": 615
+   "labelY": 615,
+   "neighbors": [
+    4,
+    99
+   ]
   },
   {
    "id": 56,
@@ -560,7 +1113,12 @@
    "population": 23568378,
    "continent": "アジア",
    "labelX": 858,
-   "labelY": 343
+   "labelY": 343,
+   "neighbors": [
+    1,
+    11,
+    13
+   ]
   },
   {
    "id": 57,
@@ -570,7 +1128,19 @@
    "population": 23310715,
    "continent": "アフリカ",
    "labelX": 224,
-   "labelY": 378
+   "labelY": 378,
+   "neighbors": [
+    7,
+    34,
+    46,
+    52,
+    59,
+    60,
+    72,
+    76,
+    101,
+    109
+   ]
   },
   {
    "id": 58,
@@ -580,7 +1150,10 @@
    "population": 21803000,
    "continent": "アジア",
    "labelX": 629,
-   "labelY": 434
+   "labelY": 434,
+   "neighbors": [
+    2
+   ]
   },
   {
    "id": 59,
@@ -590,7 +1163,17 @@
    "population": 20321378,
    "continent": "アフリカ",
    "labelX": 162,
-   "labelY": 405
+   "labelY": 405,
+   "neighbors": [
+    7,
+    46,
+    53,
+    57,
+    60,
+    74,
+    76,
+    101
+   ]
   },
   {
    "id": 60,
@@ -600,7 +1183,21 @@
    "population": 19658031,
    "continent": "アフリカ",
    "labelX": 159,
-   "labelY": 371
+   "labelY": 371,
+   "neighbors": [
+    7,
+    34,
+    46,
+    53,
+    57,
+    59,
+    71,
+    74,
+    102,
+    129,
+    145,
+    151
+   ]
   },
   {
    "id": 61,
@@ -610,7 +1207,22 @@
    "population": 19356544,
    "continent": "ヨーロッパ",
    "labelX": 312,
-   "labelY": 217
+   "labelY": 217,
+   "neighbors": [
+    17,
+    32,
+    38,
+    85,
+    93,
+    106,
+    107,
+    118,
+    132,
+    135,
+    143,
+    150,
+    153
+   ]
   },
   {
    "id": 62,
@@ -620,7 +1232,12 @@
    "population": 18952038,
    "continent": "南アメリカ",
    "labelX": 1807,
-   "labelY": 694
+   "labelY": 694,
+   "neighbors": [
+    31,
+    43,
+    79
+   ]
   },
   {
    "id": 63,
@@ -630,7 +1247,13 @@
    "population": 18628747,
    "continent": "アフリカ",
    "labelX": 361,
-   "labelY": 553
+   "labelY": 553,
+   "neighbors": [
+    25,
+    47,
+    65,
+    73
+   ]
   },
   {
    "id": 64,
@@ -640,7 +1263,16 @@
    "population": 18513930,
    "continent": "アジア",
    "labelX": 561,
-   "labelY": 198
+   "labelY": 198,
+   "neighbors": [
+    1,
+    9,
+    42,
+    96,
+    111,
+    114,
+    136
+   ]
   },
   {
    "id": 65,
@@ -650,7 +1282,17 @@
    "population": 17861030,
    "continent": "アフリカ",
    "labelX": 320,
-   "labelY": 561
+   "labelY": 561,
+   "neighbors": [
+    16,
+    25,
+    45,
+    47,
+    63,
+    73,
+    144,
+    146
+   ]
   },
   {
    "id": 66,
@@ -660,7 +1302,11 @@
    "population": 17373662,
    "continent": "南アメリカ",
    "labelX": 1773,
-   "labelY": 484
+   "labelY": 484,
+   "neighbors": [
+    29,
+    43
+   ]
   },
   {
    "id": 67,
@@ -670,7 +1316,27 @@
    "population": 17332850,
    "continent": "ヨーロッパ",
    "labelX": 202,
-   "labelY": 179
+   "labelY": 179,
+   "neighbors": [
+    18,
+    21,
+    22,
+    50,
+    80,
+    115,
+    170,
+    189,
+    195,
+    196,
+    199,
+    210,
+    212,
+    216,
+    218,
+    222,
+    226,
+    229
+   ]
   },
   {
    "id": 68,
@@ -680,7 +1346,18 @@
    "population": 17070135,
    "continent": "アジア",
    "labelX": 388,
-   "labelY": 278
+   "labelY": 278,
+   "neighbors": [
+    17,
+    36,
+    41,
+    90,
+    97,
+    108,
+    128,
+    160,
+    180
+   ]
   },
   {
    "id": 69,
@@ -690,7 +1367,14 @@
    "population": 16604026,
    "continent": "北アメリカ",
    "labelX": 1703,
-   "labelY": 392
+   "labelY": 392,
+   "neighbors": [
+    10,
+    94,
+    110,
+    112,
+    177
+   ]
   },
   {
    "id": 70,
@@ -700,7 +1384,12 @@
    "population": 16486542,
    "continent": "アジア",
    "labelX": 765,
-   "labelY": 405
+   "labelY": 405,
+   "neighbors": [
+    15,
+    20,
+    104
+   ]
   },
   {
    "id": 71,
@@ -710,7 +1399,14 @@
    "population": 16296364,
    "continent": "アフリカ",
    "labelX": 86,
-   "labelY": 391
+   "labelY": 391,
+   "neighbors": [
+    60,
+    74,
+    129,
+    145,
+    151
+   ]
   },
   {
    "id": 72,
@@ -720,7 +1416,16 @@
    "population": 15946876,
    "continent": "アフリカ",
    "labelX": 276,
-   "labelY": 391
+   "labelY": 391,
+   "neighbors": [
+    7,
+    35,
+    52,
+    57,
+    83,
+    109,
+    127
+   ]
   },
   {
    "id": 73,
@@ -730,7 +1435,17 @@
    "population": 14645468,
    "continent": "アフリカ",
    "labelX": 340,
-   "labelY": 585
+   "labelY": 585,
+   "neighbors": [
+    16,
+    24,
+    45,
+    47,
+    63,
+    65,
+    144,
+    146
+   ]
   },
   {
    "id": 74,
@@ -740,7 +1455,17 @@
    "population": 12771246,
    "continent": "アフリカ",
    "labelX": 113,
-   "labelY": 417
+   "labelY": 417,
+   "neighbors": [
+    53,
+    59,
+    60,
+    71,
+    102,
+    125,
+    145,
+    151
+   ]
   },
   {
    "id": 75,
@@ -750,7 +1475,13 @@
    "population": 12626950,
    "continent": "アフリカ",
    "labelX": 341,
-   "labelY": 488
+   "labelY": 488,
+   "neighbors": [
+    16,
+    25,
+    33,
+    78
+   ]
   },
   {
    "id": 76,
@@ -760,7 +1491,14 @@
    "population": 11801151,
    "continent": "アフリカ",
    "labelX": 184,
-   "labelY": 419
+   "labelY": 419,
+   "neighbors": [
+    7,
+    46,
+    57,
+    59,
+    101
+   ]
   },
   {
    "id": 77,
@@ -770,7 +1508,12 @@
    "population": 11694719,
    "continent": "アフリカ",
    "labelX": 221,
-   "labelY": 286
+   "labelY": 286,
+   "neighbors": [
+    23,
+    34,
+    109
+   ]
   },
   {
    "id": 78,
@@ -780,7 +1523,13 @@
    "population": 11530580,
    "continent": "アフリカ",
    "labelX": 340,
-   "labelY": 496
+   "labelY": 496,
+   "neighbors": [
+    16,
+    25,
+    33,
+    75
+   ]
   },
   {
    "id": 79,
@@ -790,7 +1539,14 @@
    "population": 11513100,
    "continent": "南アメリカ",
    "labelX": 1851,
-   "labelY": 572
+   "labelY": 572,
+   "neighbors": [
+    6,
+    31,
+    43,
+    62,
+    105
+   ]
   },
   {
    "id": 80,
@@ -800,7 +1556,15 @@
    "population": 11484055,
    "continent": "ヨーロッパ",
    "labelX": 197,
-   "labelY": 188
+   "labelY": 188,
+   "neighbors": [
+    18,
+    21,
+    22,
+    67,
+    100,
+    170
+   ]
   },
   {
    "id": 81,
@@ -810,7 +1574,16 @@
    "population": 11333483,
    "continent": "北アメリカ",
    "labelX": 1775,
-   "labelY": 356
+   "labelY": 356,
+   "neighbors": [
+    3,
+    10,
+    82,
+    139,
+    178,
+    203,
+    214
+   ]
   },
   {
    "id": 82,
@@ -820,7 +1593,14 @@
    "population": 11263077,
    "continent": "北アメリカ",
    "labelX": 1807,
-   "labelY": 368
+   "labelY": 368,
+   "neighbors": [
+    81,
+    84,
+    139,
+    178,
+    214
+   ]
   },
   {
    "id": 83,
@@ -830,7 +1610,16 @@
    "population": 11062113,
    "continent": "アフリカ",
    "labelX": 343,
-   "labelY": 436
+   "labelY": 436,
+   "neighbors": [
+    12,
+    16,
+    27,
+    33,
+    35,
+    72,
+    127
+   ]
   },
   {
    "id": 84,
@@ -840,7 +1629,13 @@
    "population": 10738958,
    "continent": "北アメリカ",
    "labelX": 1816,
-   "labelY": 369
+   "labelY": 369,
+   "neighbors": [
+    82,
+    137,
+    178,
+    214
+   ]
   },
   {
    "id": 85,
@@ -850,7 +1645,18 @@
    "population": 10716322,
    "continent": "ヨーロッパ",
    "labelX": 294,
-   "labelY": 253
+   "labelY": 253,
+   "neighbors": [
+    17,
+    23,
+    61,
+    106,
+    107,
+    140,
+    150,
+    153,
+    169
+   ]
   },
   {
    "id": 86,
@@ -860,7 +1666,16 @@
    "population": 10669709,
    "continent": "ヨーロッパ",
    "labelX": 258,
-   "labelY": 194
+   "labelY": 194,
+   "neighbors": [
+    18,
+    38,
+    93,
+    98,
+    118,
+    132,
+    149
+   ]
   },
   {
    "id": 87,
@@ -870,7 +1685,18 @@
    "population": 10285453,
    "continent": "ヨーロッパ",
    "labelX": 278,
-   "labelY": 103
+   "labelY": 103,
+   "neighbors": [
+    18,
+    38,
+    115,
+    117,
+    120,
+    142,
+    152,
+    157,
+    219
+   ]
   },
   {
    "id": 88,
@@ -880,7 +1706,11 @@
    "population": 10269417,
    "continent": "ヨーロッパ",
    "labelX": 123,
-   "labelY": 252
+   "labelY": 252,
+   "neighbors": [
+    30,
+    40
+   ]
   },
   {
    "id": 89,
@@ -890,7 +1720,12 @@
    "population": 10192317,
    "continent": "アフリカ",
    "labelX": 427,
-   "labelY": 457
+   "labelY": 457,
+   "neighbors": [
+    12,
+    27,
+    121
+   ]
   },
   {
    "id": 90,
@@ -900,7 +1735,16 @@
    "population": 10101694,
    "continent": "アジア",
    "labelX": 377,
-   "labelY": 302
+   "labelY": 302,
+   "neighbors": [
+    14,
+    36,
+    41,
+    68,
+    97,
+    108,
+    128
+   ]
   },
   {
    "id": 91,
@@ -910,7 +1754,16 @@
    "population": 10023318,
    "continent": "アジア",
    "labelX": 439,
-   "labelY": 247
+   "labelY": 247,
+   "neighbors": [
+    9,
+    17,
+    19,
+    36,
+    114,
+    133,
+    138
+   ]
   },
   {
    "id": 92,
@@ -920,7 +1773,14 @@
    "population": 9770529,
    "continent": "アジア",
    "labelX": 480,
-   "labelY": 344
+   "labelY": 344,
+   "neighbors": [
+    19,
+    41,
+    123,
+    141,
+    154
+   ]
   },
   {
    "id": 93,
@@ -930,7 +1790,19 @@
    "population": 9769949,
    "continent": "ヨーロッパ",
    "labelX": 281,
-   "labelY": 209
+   "labelY": 209,
+   "neighbors": [
+    32,
+    38,
+    61,
+    86,
+    98,
+    107,
+    118,
+    132,
+    135,
+    149
+   ]
   },
   {
    "id": 94,
@@ -940,7 +1812,14 @@
    "population": 9746117,
    "continent": "北アメリカ",
    "labelX": 1724,
-   "labelY": 393
+   "labelY": 393,
+   "neighbors": [
+    10,
+    69,
+    110,
+    112,
+    177
+   ]
   },
   {
    "id": 95,
@@ -950,7 +1829,15 @@
    "population": 9466856,
    "continent": "ヨーロッパ",
    "labelX": 332,
-   "labelY": 171
+   "labelY": 171,
+   "neighbors": [
+    9,
+    32,
+    38,
+    142,
+    152,
+    157
+   ]
   },
   {
    "id": 96,
@@ -960,7 +1847,17 @@
    "population": 9321018,
    "continent": "アジア",
    "labelX": 583,
-   "labelY": 260
+   "labelY": 260,
+   "neighbors": [
+    1,
+    5,
+    37,
+    42,
+    64,
+    111,
+    114,
+    227
+   ]
   },
   {
    "id": 97,
@@ -970,7 +1867,16 @@
    "population": 9053300,
    "continent": "アジア",
    "labelX": 368,
-   "labelY": 301
+   "labelY": 301,
+   "neighbors": [
+    14,
+    41,
+    68,
+    90,
+    108,
+    128,
+    160
+   ]
   },
   {
    "id": 98,
@@ -980,7 +1886,22 @@
    "population": 8877067,
    "continent": "ヨーロッパ",
    "labelX": 251,
-   "labelY": 207
+   "labelY": 207,
+   "neighbors": [
+    18,
+    21,
+    23,
+    38,
+    86,
+    93,
+    100,
+    118,
+    132,
+    135,
+    149,
+    215,
+    217
+   ]
   },
   {
    "id": 99,
@@ -990,7 +1911,12 @@
    "population": 8776109,
    "continent": "オセアニア",
    "labelX": 989,
-   "labelY": 510
+   "labelY": 510,
+   "neighbors": [
+    4,
+    55,
+    167
+   ]
   },
   {
    "id": 100,
@@ -1000,7 +1926,17 @@
    "population": 8574832,
    "continent": "ヨーロッパ",
    "labelX": 213,
-   "labelY": 212
+   "labelY": 212,
+   "neighbors": [
+    18,
+    21,
+    23,
+    80,
+    98,
+    170,
+    213,
+    215
+   ]
   },
   {
    "id": 101,
@@ -1010,7 +1946,14 @@
    "population": 8082366,
    "continent": "アフリカ",
    "labelX": 176,
-   "labelY": 427
+   "labelY": 427,
+   "neighbors": [
+    7,
+    46,
+    57,
+    59,
+    76
+   ]
   },
   {
    "id": 102,
@@ -1020,7 +1963,14 @@
    "population": 7813215,
    "continent": "アフリカ",
    "labelX": 103,
-   "labelY": 428
+   "labelY": 428,
+   "neighbors": [
+    53,
+    60,
+    74,
+    125,
+    151
+   ]
   },
   {
    "id": 103,
@@ -1030,7 +1980,11 @@
    "population": 7507400,
    "continent": "アジア",
    "labelX": 819,
-   "labelY": 350
+   "labelY": 350,
+   "neighbors": [
+    1,
+    168
+   ]
   },
   {
    "id": 104,
@@ -1040,7 +1994,14 @@
    "population": 7169455,
    "continent": "アジア",
    "labelX": 753,
-   "labelY": 367
+   "labelY": 367,
+   "neighbors": [
+    1,
+    15,
+    20,
+    26,
+    70
+   ]
   },
   {
    "id": 105,
@@ -1050,7 +2011,12 @@
    "population": 7044636,
    "continent": "南アメリカ",
    "labelX": 1876,
-   "labelY": 601
+   "labelY": 601,
+   "neighbors": [
+    6,
+    31,
+    79
+   ]
   },
   {
    "id": 106,
@@ -1060,7 +2026,19 @@
    "population": 6975761,
    "continent": "ヨーロッパ",
    "labelX": 313,
-   "labelY": 235
+   "labelY": 235,
+   "neighbors": [
+    17,
+    32,
+    61,
+    85,
+    107,
+    140,
+    143,
+    150,
+    153,
+    169
+   ]
   },
   {
    "id": 107,
@@ -1070,7 +2048,20 @@
    "population": 6944975,
    "continent": "ヨーロッパ",
    "labelX": 288,
-   "labelY": 226
+   "labelY": 226,
+   "neighbors": [
+    61,
+    85,
+    93,
+    106,
+    118,
+    132,
+    135,
+    140,
+    150,
+    153,
+    169
+   ]
   },
   {
    "id": 108,
@@ -1080,7 +2071,17 @@
    "population": 6855713,
    "continent": "アジア",
    "labelX": 375,
-   "labelY": 283
+   "labelY": 283,
+   "neighbors": [
+    17,
+    41,
+    68,
+    90,
+    97,
+    128,
+    160,
+    180
+   ]
   },
   {
    "id": 109,
@@ -1090,7 +2091,15 @@
    "population": 6777452,
    "continent": "アフリカ",
    "labelX": 273,
-   "labelY": 326
+   "labelY": 326,
+   "neighbors": [
+    14,
+    34,
+    35,
+    57,
+    72,
+    77
+   ]
   },
   {
    "id": 110,
@@ -1100,7 +2109,14 @@
    "population": 6545502,
    "continent": "北アメリカ",
    "labelX": 1734,
-   "labelY": 405
+   "labelY": 405,
+   "neighbors": [
+    69,
+    94,
+    112,
+    122,
+    130
+   ]
   },
   {
    "id": 111,
@@ -1110,7 +2126,14 @@
    "population": 6456900,
    "continent": "アジア",
    "labelX": 594,
-   "labelY": 240
+   "labelY": 240,
+   "neighbors": [
+    1,
+    37,
+    42,
+    64,
+    96
+   ]
   },
   {
    "id": 112,
@@ -1120,7 +2143,14 @@
    "population": 6453553,
    "continent": "北アメリカ",
    "labelX": 1712,
-   "labelY": 399
+   "labelY": 399,
+   "neighbors": [
+    10,
+    69,
+    94,
+    110,
+    177
+   ]
   },
   {
    "id": 113,
@@ -1130,7 +2160,15 @@
    "population": 6081196,
    "continent": "アフリカ",
    "labelX": 388,
-   "labelY": 387
+   "labelY": 387,
+   "neighbors": [
+    12,
+    35,
+    41,
+    48,
+    121,
+    162
+   ]
   },
   {
    "id": 114,
@@ -1140,7 +2178,15 @@
    "population": 5942089,
    "continent": "アジア",
    "labelX": 504,
-   "labelY": 251
+   "labelY": 251,
+   "neighbors": [
+    19,
+    37,
+    42,
+    64,
+    91,
+    96
+   ]
   },
   {
    "id": 115,
@@ -1150,7 +2196,14 @@
    "population": 5818553,
    "continent": "ヨーロッパ",
    "labelX": 221,
-   "labelY": 159
+   "labelY": 159,
+   "neighbors": [
+    18,
+    38,
+    67,
+    87,
+    120
+   ]
   },
   {
    "id": 116,
@@ -1160,7 +2213,11 @@
    "population": 5703569,
    "continent": "アジア",
    "labelX": 761,
-   "labelY": 470
+   "labelY": 470,
+   "neighbors": [
+    4,
+    44
+   ]
   },
   {
    "id": 117,
@@ -1170,7 +2227,15 @@
    "population": 5520314,
    "continent": "ヨーロッパ",
    "labelX": 325,
-   "labelY": 118
+   "labelY": 118,
+   "neighbors": [
+    9,
+    87,
+    120,
+    152,
+    157,
+    219
+   ]
   },
   {
    "id": 118,
@@ -1180,7 +2245,18 @@
    "population": 5454073,
    "continent": "ヨーロッパ",
    "labelX": 279,
-   "labelY": 200
+   "labelY": 200,
+   "neighbors": [
+    32,
+    38,
+    61,
+    86,
+    93,
+    98,
+    107,
+    132,
+    149
+   ]
   },
   {
    "id": 119,
@@ -1190,7 +2266,15 @@
    "population": 5380508,
    "continent": "アフリカ",
    "labelX": 261,
-   "labelY": 476
+   "labelY": 476,
+   "neighbors": [
+    16,
+    45,
+    52,
+    127,
+    147,
+    156
+   ]
   },
   {
    "id": 120,
@@ -1200,7 +2284,13 @@
    "population": 5347896,
    "continent": "ヨーロッパ",
    "labelX": 225,
-   "labelY": 128
+   "labelY": 128,
+   "neighbors": [
+    9,
+    87,
+    115,
+    117
+   ]
   },
   {
    "id": 121,
@@ -1210,7 +2300,14 @@
    "population": 5096159,
    "continent": "アフリカ",
    "labelX": 436,
-   "labelY": 424
+   "labelY": 424,
+   "neighbors": [
+    12,
+    48,
+    89,
+    113,
+    162
+   ]
   },
   {
    "id": 122,
@@ -1220,7 +2317,11 @@
    "population": 5047561,
    "continent": "北アメリカ",
    "labelX": 1740,
-   "labelY": 420
+   "labelY": 420,
+   "neighbors": [
+    110,
+    130
+   ]
   },
   {
    "id": 123,
@@ -1230,7 +2331,13 @@
    "population": 4974986,
    "continent": "アジア",
    "labelX": 496,
-   "labelY": 351
+   "labelY": 351,
+   "neighbors": [
+    19,
+    41,
+    48,
+    92
+   ]
   },
   {
    "id": 124,
@@ -1240,7 +2347,11 @@
    "population": 4941444,
    "continent": "ヨーロッパ",
    "labelX": 126,
-   "labelY": 175
+   "labelY": 175,
+   "neighbors": [
+    22,
+    200
+   ]
   },
   {
    "id": 125,
@@ -1250,7 +2361,12 @@
    "population": 4937374,
    "continent": "アフリカ",
    "labelX": 116,
-   "labelY": 441
+   "labelY": 441,
+   "neighbors": [
+    53,
+    74,
+    102
+   ]
   },
   {
    "id": 126,
@@ -1260,7 +2376,8 @@
    "population": 4917000,
    "continent": "オセアニア",
    "labelX": 1153,
-   "labelY": 703
+   "labelY": 703,
+   "neighbors": []
   },
   {
    "id": 127,
@@ -1270,7 +2387,16 @@
    "population": 4745185,
    "continent": "アフリカ",
    "labelX": 289,
-   "labelY": 438
+   "labelY": 438,
+   "neighbors": [
+    16,
+    35,
+    52,
+    72,
+    83,
+    119,
+    147
+   ]
   },
   {
    "id": 128,
@@ -1280,7 +2406,15 @@
    "population": 4685306,
    "continent": "アジア",
    "labelX": 371,
-   "labelY": 295
+   "labelY": 295,
+   "neighbors": [
+    14,
+    41,
+    68,
+    90,
+    97,
+    108
+   ]
   },
   {
    "id": 129,
@@ -1290,7 +2424,15 @@
    "population": 4525696,
    "continent": "アフリカ",
    "labelX": 115,
-   "labelY": 366
+   "labelY": 366,
+   "neighbors": [
+    34,
+    40,
+    60,
+    71,
+    145,
+    171
+   ]
   },
   {
    "id": 130,
@@ -1300,7 +2442,12 @@
    "population": 4246439,
    "continent": "北アメリカ",
    "labelX": 1761,
-   "labelY": 428
+   "labelY": 428,
+   "neighbors": [
+    29,
+    110,
+    122
+   ]
   },
   {
    "id": 131,
@@ -1310,7 +2457,12 @@
    "population": 4207083,
    "continent": "アジア",
    "labelX": 439,
-   "labelY": 310
+   "labelY": 310,
+   "neighbors": [
+    19,
+    36,
+    41
+   ]
   },
   {
    "id": 132,
@@ -1320,7 +2472,22 @@
    "population": 4067500,
    "continent": "ヨーロッパ",
    "labelX": 263,
-   "labelY": 217
+   "labelY": 217,
+   "neighbors": [
+    23,
+    61,
+    86,
+    93,
+    98,
+    107,
+    118,
+    135,
+    140,
+    149,
+    153,
+    169,
+    217
+   ]
   },
   {
    "id": 133,
@@ -1330,7 +2497,14 @@
    "population": 3720382,
    "continent": "アジア",
    "labelX": 419,
-   "labelY": 239
+   "labelY": 239,
+   "neighbors": [
+    9,
+    17,
+    19,
+    91,
+    138
+   ]
   },
   {
    "id": 134,
@@ -1340,7 +2514,11 @@
    "population": 3461734,
    "continent": "南アメリカ",
    "labelX": 1900,
-   "labelY": 665
+   "labelY": 665,
+   "neighbors": [
+    6,
+    31
+   ]
   },
   {
    "id": 135,
@@ -1350,7 +2528,20 @@
    "population": 3301000,
    "continent": "ヨーロッパ",
    "labelX": 273,
-   "labelY": 226
+   "labelY": 226,
+   "neighbors": [
+    23,
+    61,
+    93,
+    98,
+    107,
+    132,
+    140,
+    149,
+    150,
+    153,
+    169
+   ]
   },
   {
    "id": 136,
@@ -1360,7 +2551,12 @@
    "population": 3225167,
    "continent": "アジア",
    "labelX": 763,
-   "labelY": 216
+   "labelY": 216,
+   "neighbors": [
+    1,
+    9,
+    64
+   ]
   },
   {
    "id": 137,
@@ -1370,7 +2566,14 @@
    "population": 3193694,
    "continent": "北アメリカ",
    "labelX": 1840,
-   "labelY": 374
+   "labelY": 374,
+   "neighbors": [
+    84,
+    195,
+    212,
+    216,
+    218
+   ]
   },
   {
    "id": 138,
@@ -1380,7 +2583,15 @@
    "population": 2957731,
    "continent": "アジア",
    "labelX": 425,
-   "labelY": 247
+   "labelY": 247,
+   "neighbors": [
+    9,
+    17,
+    19,
+    36,
+    91,
+    133
+   ]
   },
   {
    "id": 139,
@@ -1390,7 +2601,12 @@
    "population": 2948279,
    "continent": "北アメリカ",
    "labelX": 1778,
-   "labelY": 374
+   "labelY": 374,
+   "neighbors": [
+    81,
+    82,
+    203
+   ]
   },
   {
    "id": 140,
@@ -1400,7 +2616,18 @@
    "population": 2854191,
    "continent": "ヨーロッパ",
    "labelX": 285,
-   "labelY": 246
+   "labelY": 246,
+   "neighbors": [
+    23,
+    85,
+    106,
+    107,
+    132,
+    135,
+    150,
+    153,
+    169
+   ]
   },
   {
    "id": 141,
@@ -1410,7 +2637,13 @@
    "population": 2832067,
    "continent": "アジア",
    "labelX": 461,
-   "labelY": 334
+   "labelY": 334,
+   "neighbors": [
+    19,
+    41,
+    92,
+    154
+   ]
   },
   {
    "id": 142,
@@ -1420,7 +2653,16 @@
    "population": 2786844,
    "continent": "ヨーロッパ",
    "labelX": 307,
-   "labelY": 164
+   "labelY": 164,
+   "neighbors": [
+    9,
+    32,
+    38,
+    87,
+    95,
+    152,
+    157
+   ]
   },
   {
    "id": 143,
@@ -1430,7 +2672,12 @@
    "population": 2657637,
    "continent": "ヨーロッパ",
    "labelX": 332,
-   "labelY": 207
+   "labelY": 207,
+   "neighbors": [
+    32,
+    61,
+    106
+   ]
   },
   {
    "id": 144,
@@ -1440,7 +2687,14 @@
    "population": 2494530,
    "continent": "アフリカ",
    "labelX": 267,
-   "labelY": 594
+   "labelY": 594,
+   "neighbors": [
+    24,
+    45,
+    65,
+    73,
+    146
+   ]
   },
   {
    "id": 145,
@@ -1450,7 +2704,14 @@
    "population": 2347706,
    "continent": "アフリカ",
    "labelX": 85,
-   "labelY": 400
+   "labelY": 400,
+   "neighbors": [
+    60,
+    71,
+    74,
+    129,
+    151
+   ]
   },
   {
    "id": 146,
@@ -1460,7 +2721,15 @@
    "population": 2303697,
    "continent": "アフリカ",
    "labelX": 308,
-   "labelY": 603
+   "labelY": 603,
+   "neighbors": [
+    24,
+    45,
+    47,
+    65,
+    73,
+    144
+   ]
   },
   {
    "id": 147,
@@ -1470,7 +2739,16 @@
    "population": 2172579,
    "continent": "アフリカ",
    "labelX": 238,
-   "labelY": 480
+   "labelY": 480,
+   "neighbors": [
+    16,
+    45,
+    52,
+    119,
+    127,
+    156,
+    185
+   ]
   },
   {
    "id": 148,
@@ -1480,7 +2758,11 @@
    "population": 2125268,
    "continent": "アフリカ",
    "labelX": 331,
-   "labelY": 645
+   "labelY": 645,
+   "neighbors": [
+    24,
+    161
+   ]
   },
   {
    "id": 149,
@@ -1490,7 +2772,18 @@
    "population": 2087946,
    "continent": "ヨーロッパ",
    "labelX": 255,
-   "labelY": 215
+   "labelY": 215,
+   "neighbors": [
+    18,
+    23,
+    86,
+    93,
+    98,
+    118,
+    132,
+    135,
+    217
+   ]
   },
   {
    "id": 150,
@@ -1500,7 +2793,18 @@
    "population": 2083459,
    "continent": "ヨーロッパ",
    "labelX": 293,
-   "labelY": 241
+   "labelY": 241,
+   "neighbors": [
+    23,
+    61,
+    85,
+    106,
+    107,
+    135,
+    140,
+    153,
+    169
+   ]
   },
   {
    "id": 151,
@@ -1510,7 +2814,14 @@
    "population": 1920922,
    "continent": "アフリカ",
    "labelX": 88,
-   "labelY": 408
+   "labelY": 408,
+   "neighbors": [
+    60,
+    71,
+    74,
+    102,
+    145
+   ]
   },
   {
    "id": 152,
@@ -1520,7 +2831,16 @@
    "population": 1912789,
    "continent": "ヨーロッパ",
    "labelX": 315,
-   "labelY": 153
+   "labelY": 153,
+   "neighbors": [
+    9,
+    38,
+    87,
+    95,
+    117,
+    142,
+    157
+   ]
   },
   {
    "id": 153,
@@ -1530,7 +2850,18 @@
    "population": 1794248,
    "continent": "ヨーロッパ",
    "labelX": 289,
-   "labelY": 235
+   "labelY": 235,
+   "neighbors": [
+    61,
+    85,
+    106,
+    107,
+    132,
+    135,
+    140,
+    150,
+    169
+   ]
   },
   {
    "id": 154,
@@ -1540,7 +2871,13 @@
    "population": 1641172,
    "continent": "アジア",
    "labelX": 458,
-   "labelY": 329
+   "labelY": 329,
+   "neighbors": [
+    19,
+    41,
+    92,
+    141
+   ]
   },
   {
    "id": 155,
@@ -1550,7 +2887,13 @@
    "population": 1394973,
    "continent": "北アメリカ",
    "labelX": 1872,
-   "labelY": 415
+   "labelY": 415,
+   "neighbors": [
+    50,
+    165,
+    192,
+    193
+   ]
   },
   {
    "id": 156,
@@ -1560,7 +2903,14 @@
    "population": 1355986,
    "continent": "アフリカ",
    "labelX": 221,
-   "labelY": 464
+   "labelY": 464,
+   "neighbors": [
+    7,
+    52,
+    119,
+    147,
+    185
+   ]
   },
   {
    "id": 157,
@@ -1570,7 +2920,16 @@
    "population": 1326590,
    "continent": "ヨーロッパ",
    "labelX": 317,
-   "labelY": 143
+   "labelY": 143,
+   "neighbors": [
+    9,
+    87,
+    95,
+    117,
+    142,
+    152,
+    219
+   ]
   },
   {
    "id": 158,
@@ -1580,7 +2939,10 @@
    "population": 1293119,
    "continent": "アジア",
    "labelX": 886,
-   "labelY": 527
+   "labelY": 527,
+   "neighbors": [
+    4
+   ]
   },
   {
    "id": 159,
@@ -1590,7 +2952,10 @@
    "population": 1265711,
    "continent": "海の島々",
    "labelX": 498,
-   "labelY": 593
+   "labelY": 593,
+   "neighbors": [
+    21
+   ]
   },
   {
    "id": 160,
@@ -1600,7 +2965,14 @@
    "population": 1198575,
    "continent": "アジア",
    "labelX": 358,
-   "labelY": 279
+   "labelY": 279,
+   "neighbors": [
+    17,
+    68,
+    97,
+    108,
+    180
+   ]
   },
   {
    "id": 161,
@@ -1610,7 +2982,12 @@
    "population": 1148130,
    "continent": "アフリカ",
    "labelX": 349,
-   "labelY": 628
+   "labelY": 628,
+   "neighbors": [
+    24,
+    47,
+    148
+   ]
   },
   {
    "id": 162,
@@ -1620,7 +2997,13 @@
    "population": 973560,
    "continent": "アフリカ",
    "labelX": 412,
-   "labelY": 409
+   "labelY": 409,
+   "neighbors": [
+    12,
+    48,
+    113,
+    121
+   ]
   },
   {
    "id": 163,
@@ -1630,7 +3013,8 @@
    "population": 889953,
    "continent": "オセアニア",
    "labelX": 1183,
-   "labelY": 579
+   "labelY": 579,
+   "neighbors": []
   },
   {
    "id": 164,
@@ -1640,7 +3024,10 @@
    "population": 850886,
    "continent": "アフリカ",
    "labelX": 417,
-   "labelY": 544
+   "labelY": 544,
+   "neighbors": [
+    21
+   ]
   },
   {
    "id": 165,
@@ -1650,7 +3037,13 @@
    "population": 782766,
    "continent": "南アメリカ",
    "labelX": 1883,
-   "labelY": 448
+   "labelY": 448,
+   "neighbors": [
+    6,
+    50,
+    155,
+    172
+   ]
   },
   {
    "id": 166,
@@ -1660,7 +3053,13 @@
    "population": 763092,
    "continent": "アジア",
    "labelX": 682,
-   "labelY": 321
+   "labelY": 321,
+   "neighbors": [
+    1,
+    2,
+    8,
+    49
+   ]
   },
   {
    "id": 167,
@@ -1670,7 +3069,11 @@
    "population": 669823,
    "continent": "オセアニア",
    "labelX": 1076,
-   "labelY": 523
+   "labelY": 523,
+   "neighbors": [
+    99,
+    181
+   ]
   },
   {
    "id": 168,
@@ -1680,7 +3083,11 @@
    "population": 640445,
    "continent": "アジア",
    "labelX": 816,
-   "labelY": 351
+   "labelY": 351,
+   "neighbors": [
+    1,
+    103
+   ]
   },
   {
    "id": 169,
@@ -1690,7 +3097,18 @@
    "population": 622137,
    "continent": "ヨーロッパ",
    "labelX": 279,
-   "labelY": 234
+   "labelY": 234,
+   "neighbors": [
+    23,
+    85,
+    106,
+    107,
+    132,
+    135,
+    140,
+    150,
+    153
+   ]
   },
   {
    "id": 170,
@@ -1700,7 +3118,14 @@
    "population": 619896,
    "continent": "ヨーロッパ",
    "labelX": 205,
-   "labelY": 194
+   "labelY": 194,
+   "neighbors": [
+    18,
+    21,
+    67,
+    80,
+    100
+   ]
   },
   {
    "id": 171,
@@ -1710,7 +3135,12 @@
    "population": 603253,
    "continent": "アフリカ",
    "labelX": 98,
-   "labelY": 341
+   "labelY": 341,
+   "neighbors": [
+    34,
+    40,
+    129
+   ]
   },
   {
    "id": 172,
@@ -1720,7 +3150,12 @@
    "population": 581363,
    "continent": "南アメリカ",
    "labelX": 1900,
-   "labelY": 454
+   "labelY": 454,
+   "neighbors": [
+    6,
+    21,
+    165
+   ]
   },
   {
    "id": 173,
@@ -1730,7 +3165,8 @@
    "population": 549935,
    "continent": "アフリカ",
    "labelX": 36,
-   "labelY": 392
+   "labelY": 392,
+   "neighbors": []
   },
   {
    "id": 174,
@@ -1740,7 +3176,8 @@
    "population": 530953,
    "continent": "海の島々",
    "labelX": 588,
-   "labelY": 454
+   "labelY": 454,
+   "neighbors": []
   },
   {
    "id": 175,
@@ -1750,7 +3187,10 @@
    "population": 502653,
    "continent": "ヨーロッパ",
    "labelX": 252,
-   "labelY": 273
+   "labelY": 273,
+   "neighbors": [
+    23
+   ]
   },
   {
    "id": 176,
@@ -1760,7 +3200,11 @@
    "population": 433285,
    "continent": "アジア",
    "labelX": 822,
-   "labelY": 452
+   "labelY": 452,
+   "neighbors": [
+    4,
+    44
+   ]
   },
   {
    "id": 177,
@@ -1770,7 +3214,13 @@
    "population": 390353,
    "continent": "北アメリカ",
    "labelX": 1713,
-   "labelY": 379
+   "labelY": 379,
+   "neighbors": [
+    10,
+    69,
+    94,
+    112
+   ]
   },
   {
    "id": 178,
@@ -1780,7 +3230,14 @@
    "population": 389482,
    "continent": "北アメリカ",
    "labelX": 1779,
-   "labelY": 327
+   "labelY": 327,
+   "neighbors": [
+    3,
+    81,
+    82,
+    84,
+    214
+   ]
   },
   {
    "id": 179,
@@ -1790,7 +3247,8 @@
    "population": 361313,
    "continent": "ヨーロッパ",
    "labelX": 64,
-   "labelY": 109
+   "labelY": 109,
+   "neighbors": []
   },
   {
    "id": 180,
@@ -1800,7 +3258,13 @@
    "population": 326000,
    "continent": "アジア",
    "labelX": 362,
-   "labelY": 277
+   "labelY": 277,
+   "neighbors": [
+    17,
+    68,
+    108,
+    160
+   ]
   },
   {
    "id": 181,
@@ -1810,7 +3274,11 @@
    "population": 299882,
    "continent": "オセアニア",
    "labelX": 1120,
-   "labelY": 565
+   "labelY": 565,
+   "neighbors": [
+    167,
+    182
+   ]
   },
   {
    "id": 182,
@@ -1820,7 +3288,10 @@
    "population": 287800,
    "continent": "オセアニア",
    "labelX": 1109,
-   "labelY": 597
+   "labelY": 597,
+   "neighbors": [
+    181
+   ]
   },
   {
    "id": 183,
@@ -1830,7 +3301,13 @@
    "population": 287025,
    "continent": "北アメリカ",
    "labelX": 1879,
-   "labelY": 402
+   "labelY": 402,
+   "neighbors": [
+    21,
+    187,
+    192,
+    193
+   ]
   },
   {
    "id": 184,
@@ -1840,7 +3317,8 @@
    "population": 279287,
    "continent": "オセアニア",
    "labelX": 1368,
-   "labelY": 578
+   "labelY": 578,
+   "neighbors": []
   },
   {
    "id": 185,
@@ -1850,7 +3328,11 @@
    "population": 215056,
    "continent": "アフリカ",
    "labelX": 210,
-   "labelY": 472
+   "labelY": 472,
+   "neighbors": [
+    147,
+    156
+   ]
   },
   {
    "id": 186,
@@ -1860,7 +3342,10 @@
    "population": 197097,
    "continent": "オセアニア",
    "labelX": 1237,
-   "labelY": 555
+   "labelY": 555,
+   "neighbors": [
+    209
+   ]
   },
   {
    "id": 187,
@@ -1870,7 +3355,14 @@
    "population": 182790,
    "continent": "北アメリカ",
    "labelX": 1871,
-   "labelY": 398
+   "labelY": 398,
+   "neighbors": [
+    21,
+    183,
+    192,
+    193,
+    202
+   ]
   },
   {
    "id": 188,
@@ -1880,7 +3372,10 @@
    "population": 167294,
    "continent": "オセアニア",
    "labelX": 993,
-   "labelY": 401
+   "labelY": 401,
+   "neighbors": [
+    207
+   ]
   },
   {
    "id": 189,
@@ -1890,7 +3385,13 @@
    "population": 157538,
    "continent": "北アメリカ",
    "labelX": 1826,
-   "labelY": 408
+   "labelY": 408,
+   "neighbors": [
+    29,
+    50,
+    67,
+    196
+   ]
   },
   {
    "id": 190,
@@ -1900,7 +3401,10 @@
    "population": 117606,
    "continent": "オセアニア",
    "labelX": 1323,
-   "labelY": 467
+   "labelY": 467,
+   "neighbors": [
+    223
+   ]
   },
   {
    "id": 191,
@@ -1910,7 +3414,8 @@
    "population": 113815,
    "continent": "オセアニア",
    "labelX": 1070,
-   "labelY": 438
+   "labelY": 438,
+   "neighbors": []
   },
   {
    "id": 192,
@@ -1920,7 +3425,14 @@
    "population": 112003,
    "continent": "北アメリカ",
    "labelX": 1867,
-   "labelY": 408
+   "labelY": 408,
+   "neighbors": [
+    50,
+    155,
+    183,
+    187,
+    193
+   ]
   },
   {
    "id": 193,
@@ -1930,7 +3442,15 @@
    "population": 110589,
    "continent": "北アメリカ",
    "labelX": 1869,
-   "labelY": 403
+   "labelY": 403,
+   "neighbors": [
+    21,
+    155,
+    183,
+    187,
+    192,
+    202
+   ]
   },
   {
    "id": 194,
@@ -1940,7 +3460,12 @@
    "population": 107800,
    "continent": "ヨーロッパ",
    "labelX": 158,
-   "labelY": 197
+   "labelY": 197,
+   "neighbors": [
+    21,
+    22,
+    205
+   ]
   },
   {
    "id": 195,
@@ -1950,7 +3475,17 @@
    "population": 106631,
    "continent": "北アメリカ",
    "labelX": 1850,
-   "labelY": 376
+   "labelY": 376,
+   "neighbors": [
+    67,
+    137,
+    210,
+    212,
+    216,
+    218,
+    222,
+    226
+   ]
   },
   {
    "id": 196,
@@ -1960,7 +3495,13 @@
    "population": 106314,
    "continent": "北アメリカ",
    "labelX": 1820,
-   "labelY": 406
+   "labelY": 406,
+   "neighbors": [
+    29,
+    50,
+    67,
+    189
+   ]
   },
   {
    "id": 197,
@@ -1970,7 +3511,8 @@
    "population": 104494,
    "continent": "オセアニア",
    "labelX": 1222,
-   "labelY": 598
+   "labelY": 598,
+   "neighbors": []
   },
   {
    "id": 198,
@@ -1980,7 +3522,8 @@
    "population": 97625,
    "continent": "海の島々",
    "labelX": 486,
-   "labelY": 504
+   "labelY": 504,
+   "neighbors": []
   },
   {
    "id": 199,
@@ -1990,7 +3533,18 @@
    "population": 97118,
    "continent": "北アメリカ",
    "labelX": 1867,
-   "labelY": 379
+   "labelY": 379,
+   "neighbors": [
+    21,
+    67,
+    202,
+    210,
+    212,
+    216,
+    222,
+    226,
+    229
+   ]
   },
   {
    "id": 200,
@@ -2000,7 +3554,11 @@
    "population": 84584,
    "continent": "ヨーロッパ",
    "labelX": 144,
-   "labelY": 169
+   "labelY": 169,
+   "neighbors": [
+    22,
+    124
+   ]
   },
   {
    "id": 201,
@@ -2010,7 +3568,11 @@
    "population": 77142,
    "continent": "ヨーロッパ",
    "labelX": 179,
-   "labelY": 235
+   "labelY": 235,
+   "neighbors": [
+    21,
+    30
+   ]
   },
   {
    "id": 202,
@@ -2020,7 +3582,15 @@
    "population": 71808,
    "continent": "北アメリカ",
    "labelX": 1869,
-   "labelY": 389
+   "labelY": 389,
+   "neighbors": [
+    21,
+    187,
+    193,
+    199,
+    210,
+    229
+   ]
   },
   {
    "id": 203,
@@ -2030,7 +3600,11 @@
    "population": 64948,
    "continent": "北アメリカ",
    "labelX": 1756,
-   "labelY": 367
+   "labelY": 367,
+   "neighbors": [
+    81,
+    139
+   ]
   },
   {
    "id": 204,
@@ -2040,7 +3614,8 @@
    "population": 63918,
    "continent": "北アメリカ",
    "labelX": 1850,
-   "labelY": 294
+   "labelY": 294,
+   "neighbors": []
   },
   {
    "id": 205,
@@ -2050,7 +3625,12 @@
    "population": 62792,
    "continent": "ヨーロッパ",
    "labelX": 156,
-   "labelY": 196
+   "labelY": 196,
+   "neighbors": [
+    21,
+    22,
+    194
+   ]
   },
   {
    "id": 206,
@@ -2060,7 +3640,8 @@
    "population": 58791,
    "continent": "オセアニア",
    "labelX": 1144,
-   "labelY": 437
+   "labelY": 437,
+   "neighbors": []
   },
   {
    "id": 207,
@@ -2070,7 +3651,10 @@
    "population": 57216,
    "continent": "オセアニア",
    "labelX": 999,
-   "labelY": 391
+   "labelY": 391,
+   "neighbors": [
+    188
+   ]
   },
   {
    "id": 208,
@@ -2080,7 +3664,10 @@
    "population": 56225,
    "continent": "北アメリカ",
    "labelX": 1994,
-   "labelY": 55
+   "labelY": 55,
+   "neighbors": [
+    39
+   ]
   },
   {
    "id": 209,
@@ -2090,7 +3677,10 @@
    "population": 55312,
    "continent": "オセアニア",
    "labelX": 1247,
-   "labelY": 559
+   "labelY": 559,
+   "neighbors": [
+    186
+   ]
   },
   {
    "id": 210,
@@ -2100,7 +3690,20 @@
    "population": 52834,
    "continent": "北アメリカ",
    "labelX": 1861,
-   "labelY": 379
+   "labelY": 379,
+   "neighbors": [
+    21,
+    67,
+    195,
+    199,
+    202,
+    212,
+    216,
+    218,
+    222,
+    226,
+    229
+   ]
   },
   {
    "id": 211,
@@ -2110,7 +3713,8 @@
    "population": 48678,
    "continent": "ヨーロッパ",
    "labelX": 130,
-   "labelY": 124
+   "labelY": 124,
+   "neighbors": []
   },
   {
    "id": 212,
@@ -2120,7 +3724,19 @@
    "population": 40733,
    "continent": "北アメリカ",
    "labelX": 1859,
-   "labelY": 375
+   "labelY": 375,
+   "neighbors": [
+    67,
+    137,
+    195,
+    199,
+    210,
+    216,
+    218,
+    222,
+    226,
+    229
+   ]
   },
   {
    "id": 213,
@@ -2130,7 +3746,12 @@
    "population": 38964,
    "continent": "ヨーロッパ",
    "labelX": 212,
-   "labelY": 228
+   "labelY": 228,
+   "neighbors": [
+    21,
+    23,
+    100
+   ]
   },
   {
    "id": 214,
@@ -2140,7 +3761,13 @@
    "population": 38191,
    "continent": "北アメリカ",
    "labelX": 1810,
-   "labelY": 353
+   "labelY": 353,
+   "neighbors": [
+    81,
+    82,
+    84,
+    178
+   ]
   },
   {
    "id": 215,
@@ -2150,7 +3777,13 @@
    "population": 38019,
    "continent": "ヨーロッパ",
    "labelX": 225,
-   "labelY": 209
+   "labelY": 209,
+   "neighbors": [
+    18,
+    23,
+    98,
+    100
+   ]
   },
   {
    "id": 216,
@@ -2160,7 +3793,20 @@
    "population": 38002,
    "continent": "北アメリカ",
    "labelX": 1859,
-   "labelY": 374
+   "labelY": 374,
+   "neighbors": [
+    21,
+    67,
+    137,
+    195,
+    199,
+    210,
+    212,
+    218,
+    222,
+    226,
+    229
+   ]
   },
   {
    "id": 217,
@@ -2170,7 +3816,14 @@
    "population": 33860,
    "continent": "ヨーロッパ",
    "labelX": 241,
-   "labelY": 227
+   "labelY": 227,
+   "neighbors": [
+    23,
+    98,
+    132,
+    149,
+    236
+   ]
   },
   {
    "id": 218,
@@ -2180,7 +3833,17 @@
    "population": 30030,
    "continent": "北アメリカ",
    "labelX": 1850,
-   "labelY": 372
+   "labelY": 372,
+   "neighbors": [
+    67,
+    137,
+    195,
+    210,
+    212,
+    216,
+    222,
+    226
+   ]
   },
   {
    "id": 219,
@@ -2190,7 +3853,12 @@
    "population": 29884,
    "continent": "ヨーロッパ",
    "labelX": 283,
-   "labelY": 135
+   "labelY": 135,
+   "neighbors": [
+    87,
+    117,
+    157
+   ]
   },
   {
    "id": 220,
@@ -2200,7 +3868,8 @@
    "population": 18008,
    "continent": "オセアニア",
    "labelX": 936,
-   "labelY": 435
+   "labelY": 435,
+   "neighbors": []
   },
   {
    "id": 221,
@@ -2210,7 +3879,8 @@
    "population": 17459,
    "continent": "オセアニア",
    "labelX": 1309,
-   "labelY": 598
+   "labelY": 598,
+   "neighbors": []
   },
   {
    "id": 222,
@@ -2220,7 +3890,19 @@
    "population": 14731,
    "continent": "北アメリカ",
    "labelX": 1860,
-   "labelY": 374
+   "labelY": 374,
+   "neighbors": [
+    21,
+    67,
+    195,
+    199,
+    210,
+    212,
+    216,
+    218,
+    226,
+    229
+   ]
   },
   {
    "id": 223,
@@ -2230,7 +3912,10 @@
    "population": 12581,
    "continent": "オセアニア",
    "labelX": 1120,
-   "labelY": 480
+   "labelY": 480,
+   "neighbors": [
+    190
+   ]
   },
   {
    "id": 224,
@@ -2240,7 +3925,8 @@
    "population": 11646,
    "continent": "オセアニア",
    "labelX": 1190,
-   "labelY": 526
+   "labelY": 526,
+   "neighbors": []
   },
   {
    "id": 225,
@@ -2250,7 +3936,8 @@
    "population": 11558,
    "continent": "オセアニア",
    "labelX": 1205,
-   "labelY": 559
+   "labelY": 559,
+   "neighbors": []
   },
   {
    "id": 226,
@@ -2260,7 +3947,19 @@
    "population": 9961,
    "continent": "北アメリカ",
    "labelX": 1861,
-   "labelY": 375
+   "labelY": 375,
+   "neighbors": [
+    21,
+    67,
+    195,
+    199,
+    210,
+    212,
+    216,
+    218,
+    222,
+    229
+   ]
   },
   {
    "id": 227,
@@ -2270,7 +3969,13 @@
    "population": 6000,
    "continent": "アジア",
    "labelX": 609,
-   "labelY": 276
+   "labelY": 276,
+   "neighbors": [
+    1,
+    2,
+    5,
+    96
+   ]
   },
   {
    "id": 228,
@@ -2280,7 +3985,10 @@
    "population": 5997,
    "continent": "北アメリカ",
    "labelX": 1898,
-   "labelY": 210
+   "labelY": 210,
+   "neighbors": [
+    39
+   ]
   },
   {
    "id": 229,
@@ -2290,7 +3998,18 @@
    "population": 4649,
    "continent": "北アメリカ",
    "labelX": 1864,
-   "labelY": 382
+   "labelY": 382,
+   "neighbors": [
+    21,
+    67,
+    199,
+    202,
+    210,
+    212,
+    216,
+    222,
+    226
+   ]
   },
   {
    "id": 230,
@@ -2300,7 +4019,8 @@
    "population": 4534,
    "continent": "海の島々",
    "labelX": 138,
-   "labelY": 568
+   "labelY": 568,
+   "neighbors": []
   },
   {
    "id": 231,
@@ -2310,7 +4030,8 @@
    "population": 3398,
    "continent": "南アメリカ",
    "labelX": 1884,
-   "labelY": 771
+   "labelY": 771,
+   "neighbors": []
   },
   {
    "id": 232,
@@ -2320,7 +4041,8 @@
    "population": 3000,
    "continent": "海の島々",
    "labelX": 576,
-   "labelY": 513
+   "labelY": 513,
+   "neighbors": []
   },
   {
    "id": 233,
@@ -2330,7 +4052,8 @@
    "population": 2387,
    "continent": "アジア",
    "labelX": 771,
-   "labelY": 537
+   "labelY": 537,
+   "neighbors": []
   },
   {
    "id": 234,
@@ -2340,7 +4063,8 @@
    "population": 2169,
    "continent": "オセアニア",
    "labelX": 1126,
-   "labelY": 642
+   "labelY": 642,
+   "neighbors": []
   },
   {
    "id": 235,
@@ -2350,7 +4074,8 @@
    "population": 1620,
    "continent": "オセアニア",
    "labelX": 1252,
-   "labelY": 586
+   "labelY": 586,
+   "neighbors": []
   },
   {
    "id": 236,
@@ -2360,7 +4085,11 @@
    "population": 825,
    "continent": "ヨーロッパ",
    "labelX": 241,
-   "labelY": 239
+   "labelY": 239,
+   "neighbors": [
+    23,
+    217
+   ]
   },
   {
    "id": 237,
@@ -2370,7 +4099,8 @@
    "population": 140,
    "continent": "海の島々",
    "labelX": 563,
-   "labelY": 758
+   "labelY": 758,
+   "neighbors": []
   },
   {
    "id": 238,
@@ -2380,7 +4110,8 @@
    "population": 54,
    "continent": "オセアニア",
    "labelX": 1488,
-   "labelY": 616
+   "labelY": 616,
+   "neighbors": []
   },
   {
    "id": 239,
@@ -2390,7 +4121,8 @@
    "population": 30,
    "continent": "海の島々",
    "labelX": 2041,
-   "labelY": 794
+   "labelY": 794,
+   "neighbors": []
   }
  ]
 }
