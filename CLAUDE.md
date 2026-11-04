@@ -1,25 +1,21 @@
-# 名字ワールド — このリポジトリで作業する Claude へ（毎回最初に読む）
+# ランウェイ・ウォーク（仮）— このリポジトリで作業する Claude へ（毎回最初に読む）
 
-自分の名字を世界中に広めて、全員を同じ名字にするゲーム。Unity で作る。**1人で制作している。**
-（感染が広がるタイプのシミュレーションゲームの「雰囲気」を借りる。特定の既存ゲームの名前・見た目・用語は写さない）
+パリコレモデルの足を操作して、ランウェイをきれいに歩くバカゲー。足の操作はわざと難しい。Unity で作る。**1人で制作している。**
+（足を操作する、操作の難しいゲームのジャンル。特定の既存ゲームの名前・見た目は写さない）
+リポジトリ名は前のゲーム（名字ワールド）のまま `myouzi-world1`。名字ワールドのファイルは消したが Git の記録に残っている
 目的・締切: <未定>
 
 ## エンジン
-Unity 6000.4.0f1（将棋ゲームと同じ）の **2D**。決めた後は**版を上げない**（上げるときは本人に聞く）。
+Unity 6000.4.0f1 の **2D**。決めた後は**版を上げない**（上げるときは本人に聞く）。
 Unity プロジェクトは `My project/` フォルダ。Git に入れるのはその中の `Assets/` `Packages/` `ProjectSettings/` だけ
 （`Library/` `Temp/` `Logs/` `UserSettings/` などは Unity が自動で作るので `.gitignore` で除外。サブフォルダでも効く形にしてある）。
 
 ## コードの場所
-- `My project/Assets/Scripts/MyouziGame.cs` … 画面と操作。シーンを再生すると自動で起動する（シーンに置く必要なし）。名字の入力画面 → 世界地図の画面（最初の国を選ぶ → 時間が進む）
-- `My project/Assets/Scripts/MyouziGamePlay.cs` … 遊んでいる間の画面（ポイントのマーク、広がりの線、ニュース、右の強化パネル、勝ち負けの画面）。MyouziGame の続き（partial）
-- `My project/Assets/Scripts/NameSpread.cs` … 名字の広がり方（ゲームのルール。国の中で増える・近い国へ・飛行機と船・ポイント・強化・種撒きと結婚ブーム・伝統を守る会・勝ち負け）。Unity に依存しない
-- `My project/Assets/Scripts/Surnames.cs` … よくある名字の表を引く（入力された名字が、どの国にだいたい何人いるか）
-- `My project/Assets/Resources/Surnames.json` … よくある名字の表（書き方・国の記号・だいたいの人数）。手で足してよい
-- `My project/Assets/Scripts/WorldMap.cs` … 世界地図のデータと絵（国ごとの色分け、マウスの下の国を調べる）。Unity の画面には依存しない
-- `My project/Assets/Resources/Map/` … 地図のデータ（`CountryMap.bytes` = ピクセルごとの国の番号、`Countries.json` = 国の名前・人口・近い国）。手で直さず `tools/make_world_map.py` で作り直す
-- `tools/make_world_map.py` … 地図のデータを作る道具（Python ＋ Pillow。Unity の外で動かす）
+- `My project/Assets/Scripts/RunwayGame.cs` … ゲームの進み・ステージ・カメラ・画面の文字・結果。シーンを再生すると自動で起動する（シーンに置く必要なし）
+- `My project/Assets/Scripts/RunwayModel.cs` … モデルの体（Rigidbody2D の人形）と、足を動かす力。調整用の数は先頭にまとめてある
 - 作ったらここに「ファイル名 … 何をするか」を1行ずつ書く
 - ゲームの決まりは `docs/決めたこと.md` が正。コードを変えたらそちらも合わせる
+- 物理の数を変えるときは、Box2D（Python の box2d）で同じ体を作って試算してから入れる（Unity の 2D 物理も Box2D）
 
 ## 毎回やること
 - 作業を始めるとき: `git pull`。衝突したら、どちらを残すか本人に聞く（勝手に片方を消さない）
