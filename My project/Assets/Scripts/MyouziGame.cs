@@ -193,7 +193,7 @@ public partial class MyouziGame : MonoBehaviour
         startButton.SetActive(false);
         speedButtons.SetActive(true);
         SetPlayingLayout(true);
-        AddNews("1日目　「" + Surname + "」家の世界進出が始まった！ 紫の「バズ」をクリックしてポイントを集めよう");
+        AddNews("「" + Surname + "」家の世界進出が始まった！ 紫の「バズ」をクリックしてポイントを集めよう");
         RefreshColors();
         RefreshTexts();
         RefreshPanel();
@@ -210,7 +210,7 @@ public partial class MyouziGame : MonoBehaviour
     {
         dayTimer += Time.deltaTime * Speeds[speedIndex];
         int steps = 0;
-        while (dayTimer >= 1f && steps < 30)
+        while (dayTimer >= 1f && steps < 30 && !spread.Over)
         {
             spread.Step();
             HandleDayEvents();
@@ -233,7 +233,9 @@ public partial class MyouziGame : MonoBehaviour
         {
             double share = spread.Share(c);
             if (spread.People(c.id) < 1) continue;
-            map.SetCountryColor(c.id, CountryColor(share));
+            var color = CountryColor(share);
+            if (spread.HasLaw(c.id)) color = Color32.Lerp(color, new Color32(120, 120, 120, 255), 0.5f); // 禁止法の国は灰色がかる
+            map.SetCountryColor(c.id, color);
         }
     }
 
@@ -246,7 +248,7 @@ public partial class MyouziGame : MonoBehaviour
 
     void RefreshTexts()
     {
-        dateText.text = spread.Day + "日目";
+        dateText.text = DateLabel();
         worldText.text = "「" + Surname + "」さん " + WorldMap.FormatPeople((long)spread.Total)
                        + "（世界の " + FormatShare(spread.WorldShare) + "）"
                        + "\n世界の人口 " + WorldMap.FormatPeople(spread.WorldPopulation)
@@ -354,7 +356,7 @@ public partial class MyouziGame : MonoBehaviour
         if (c == null)
         {
             infoText.text = playing
-                ? "国をクリックで選ぶと、その国の様子が出て、右のパネルで宣伝できます\nホイールで拡大・縮小、右ドラッグで移動"
+                ? "国をクリックで選ぶと様子が出て、右のパネルで種撒き・結婚ブーム\nホイールで拡大・縮小、右ドラッグで移動"
                 : knownStart.Count > 0
                     ? "紫の国に最初から「" + Surname + "」さんがいます。右上のボタンで始めます\nホイールで拡大・縮小、右ドラッグで移動"
                     : "国をクリックして選び、右上の「この国から始める」を押してください\nホイールで拡大・縮小、右ドラッグで移動";
@@ -365,7 +367,8 @@ public partial class MyouziGame : MonoBehaviour
         infoText.text = c.name + "（" + c.continent + "）\n人口 " + WorldMap.FormatPeople(c.population)
                       + "\n「" + Surname + "」さん " + WorldMap.FormatPeople((long)people)
                       + (people >= 1 ? "（" + FormatShare(people / c.population) + "）" : "")
-                      + (playing && spread.Campaigning(c.id) ? "　宣伝中" : "");
+                      + (playing && spread.Campaigning(c.id) ? "　結婚ブーム中" : "")
+                      + (playing && spread.HasLaw(c.id) ? "　名字変更禁止法あり" : "");
     }
 
     // 入力欄で Enter を押したときも決定する。
@@ -438,7 +441,7 @@ public partial class MyouziGame : MonoBehaviour
         var header = MakeBar(mapPanel.transform, "Header", true, 70, Background);
         titleText = MakeText(header, "", 30, Accent, new Vector2(30, 0), new Vector2(590, 60), new Vector2(0, 0.5f), TextAnchor.MiddleLeft);
         MakeButton(header, "名字を変える", new Vector2(-20, 0), new Vector2(200, 50), BackToEntry, new Vector2(1, 0.5f));
-        dateText = MakeText(header, "", 30, TextColor, new Vector2(-500, 0), new Vector2(140, 60), new Vector2(1, 0.5f), TextAnchor.MiddleRight);
+        dateText = MakeText(header, "", 24, TextColor, new Vector2(-500, 0), new Vector2(150, 60), new Vector2(1, 0.5f), TextAnchor.MiddleRight);
 
         // 速さの切りかえ（停止・普通・速い）
         speedButtons = new GameObject("SpeedButtons");

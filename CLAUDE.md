@@ -11,8 +11,8 @@ Unity プロジェクトは `My project/` フォルダ。Git に入れるのは�
 
 ## コードの場所
 - `My project/Assets/Scripts/MyouziGame.cs` … 画面と操作。シーンを再生すると自動で起動する（シーンに置く必要なし）。名字の入力画面 → 世界地図の画面（最初の国を選ぶ → 時間が進む）
-- `My project/Assets/Scripts/MyouziGamePlay.cs` … 遊んでいる間の画面（ポイントのマーク、広がりの線、ニュース、右の強化パネル）。MyouziGame の続き（partial）
-- `My project/Assets/Scripts/NameSpread.cs` … 名字の広がり方（ゲームのルール。国の中で増える・近い国へ・飛行機と船・ポイント・強化・宣伝）。Unity に依存しない
+- `My project/Assets/Scripts/MyouziGamePlay.cs` … 遊んでいる間の画面（ポイントのマーク、広がりの線、ニュース、右の強化パネル、勝ち負けの画面）。MyouziGame の続き（partial）
+- `My project/Assets/Scripts/NameSpread.cs` … 名字の広がり方（ゲームのルール。国の中で増える・近い国へ・飛行機と船・ポイント・強化・種撒きと結婚ブーム・伝統を守る会・勝ち負け）。Unity に依存しない
 - `My project/Assets/Scripts/Surnames.cs` … よくある名字の表を引く（入力された名字が、どの国にだいたい何人いるか）
 - `My project/Assets/Resources/Surnames.json` … よくある名字の表（書き方・国の記号・だいたいの人数）。手で足してよい
 - `My project/Assets/Scripts/WorldMap.cs` … 世界地図のデータと絵（国ごとの色分け、マウスの下の国を調べる）。Unity の画面には依存しない
