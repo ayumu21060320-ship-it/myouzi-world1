@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -12,7 +13,7 @@ public class MyouziGame : MonoBehaviour
     // プレイヤーが決めた名字（ほかの画面からも読めるようにしておく）
     public static string Surname { get; private set; } = "";
 
-    const int MaxLength = 8;                 // 名字は 8 文字まで（仮）
+    const int MaxLength = 12;                // 名字は 12 文字まで（ローマ字の名字も入るように）
     const string SaveKey = "Myouzi.Surname"; // 前回入れた名字を覚えておく場所
 
     static readonly Color Background = new Color(0.08f, 0.12f, 0.22f);
@@ -39,6 +40,8 @@ public class MyouziGame : MonoBehaviour
     NameSpread spread;
     bool playing;            // false = 最初の国を選んでいるところ
     GameObject startButton;  // 「この国から始める」
+    Text startLabel;
+    Dictionary<int, double> knownStart = new Dictionary<int, double>(); // よくある名字なら、国ごとの最初の人数（珍しい名字なら空）
     GameObject speedButtons; // 停止・普通・速い
     Image[] speedImages;
     static readonly float[] Speeds = { 0f, 2f, 10f };          // 1 秒に進む日数
@@ -129,9 +132,35 @@ public class MyouziGame : MonoBehaviour
             map.SetHighlight(hoverId, 0);
             map.Flush();
         }
-        titleText.text = "最初の「" + Surname + "」さんが生まれる国を選ぼう";
+        // よくある名字なら、表にある国に最初から大勢いる。珍しい名字なら、最初の国を自分で選ぶ
+        knownStart.Clear();
+        if (map != null)
+        {
+            foreach (var kv in Surnames.Find(Surname))
+            {
+                var c = map.FindByCode(kv.Key);
+                if (c != null) knownStart[c.id] = kv.Value;
+            }
+        }
+        double startTotal = 0;
+        foreach (var n in knownStart.Values) startTotal += n;
+        if (knownStart.Count > 0)
+        {
+            titleText.text = "「" + Surname + "」さんは世界に約" + WorldMap.FormatPeople((long)startTotal);
+            startLabel.text = "この人数で始める";
+            foreach (var kv in knownStart)
+                map.SetCountryColor(kv.Key, CountryColor(kv.Value / map.Get(kv.Key).population));
+            map.Flush();
+        }
+        else
+        {
+            titleText.text = "珍しい名字！最初の" + NameSpread.RareStartPeople + "人の国を選ぼう";
+            startLabel.text = "この国から始める";
+        }
+        worldText.text = (knownStart.Count > 0 ? "よくある名字: 最初から大勢いる\n" : "珍しい名字: 最初は少ない\n")
+                       + "話題性 ×" + NameSpread.BuzzFor(knownStart.Count > 0 ? startTotal : NameSpread.RareStartPeople).ToString("F2")
+                       + "（増える速さ）";
         dateText.text = "";
-        worldText.text = "";
         startButton.SetActive(true);
         speedButtons.SetActive(false);
         UpdateInfo();
@@ -141,12 +170,19 @@ public class MyouziGame : MonoBehaviour
     void StartGame()
     {
         if (map == null) return;
-        if (map.Get(selectId) == null)
+        if (knownStart.Count > 0)
         {
-            infoText.text = "先に地図で国をクリックして選んでください";
-            return;
+            spread.Start(knownStart);
         }
-        spread.Start(selectId);
+        else
+        {
+            if (map.Get(selectId) == null)
+            {
+                infoText.text = "先に地図で国をクリックして選んでください";
+                return;
+            }
+            spread.Start(new Dictionary<int, double> { { selectId, NameSpread.RareStartPeople } });
+        }
         playing = true;
         dayTimer = 0;
         SetSpeed(1);
@@ -190,18 +226,24 @@ public class MyouziGame : MonoBehaviour
         {
             double share = spread.Share(c);
             if (spread.People(c.id) < 1) continue;
-            float t = Mathf.Lerp(0.2f, 1f, Mathf.Sqrt((float)share));
-            t = Mathf.Round(t * 32f) / 32f; // 少しずつ変わるたびに描き直さないよう、32 段階にする
-            map.SetCountryColor(c.id, Color32.Lerp(WorldMap.LandColor, WorldMap.PlayerColor, t));
+            map.SetCountryColor(c.id, CountryColor(share));
         }
+    }
+
+    static Color32 CountryColor(double share)
+    {
+        float t = Mathf.Lerp(0.2f, 1f, Mathf.Sqrt((float)share));
+        t = Mathf.Round(t * 32f) / 32f; // 少しずつ変わるたびに描き直さないよう、32 段階にする
+        return Color32.Lerp(WorldMap.LandColor, WorldMap.PlayerColor, t);
     }
 
     void RefreshTexts()
     {
         dateText.text = spread.Day + "日目";
         worldText.text = "「" + Surname + "」さん " + WorldMap.FormatPeople((long)spread.Total)
-                       + "\n世界の " + FormatShare(spread.WorldShare)
-                       + "\n世界の人口 " + WorldMap.FormatPeople(spread.WorldPopulation);
+                       + "（世界の " + FormatShare(spread.WorldShare) + "）"
+                       + "\n世界の人口 " + WorldMap.FormatPeople(spread.WorldPopulation)
+                       + "\n話題性 ×" + spread.Buzz.ToString("F2");
         UpdateInfo();
     }
 
@@ -300,13 +342,16 @@ public class MyouziGame : MonoBehaviour
         {
             infoText.text = playing
                 ? "国にマウスを乗せるかクリックすると、その国の様子が出ます\nホイールで拡大・縮小、右ドラッグで移動"
-                : "国をクリックして選び、右下の「この国から始める」を押してください\nホイールで拡大・縮小、右ドラッグで移動";
+                : knownStart.Count > 0
+                    ? "紫の国に最初から「" + Surname + "」さんがいます。右上のボタンで始めます\nホイールで拡大・縮小、右ドラッグで移動"
+                    : "国をクリックして選び、右上の「この国から始める」を押してください\nホイールで拡大・縮小、右ドラッグで移動";
             return;
         }
-        var people = spread != null ? spread.People(c.id) : 0;
+        double people = spread != null && spread.Started ? spread.People(c.id) : 0;
+        if (!playing && knownStart.TryGetValue(c.id, out var known)) people = known;
         infoText.text = c.name + "（" + c.continent + "）\n人口 " + WorldMap.FormatPeople(c.population)
                       + "\n「" + Surname + "」さん " + WorldMap.FormatPeople((long)people)
-                      + (people >= 1 ? "（" + FormatShare(spread.Share(c)) + "）" : "");
+                      + (people >= 1 ? "（" + FormatShare(people / c.population) + "）" : "");
     }
 
     // 入力欄で Enter を押したときも決定する。
@@ -395,7 +440,10 @@ public class MyouziGame : MonoBehaviour
         var footer = MakeBar(mapPanel.transform, "Footer", false, 110, Background);
         infoText = MakeText(footer, "", 24, TextColor, new Vector2(30, 0), new Vector2(760, 100), new Vector2(0, 0.5f), TextAnchor.MiddleLeft);
         worldText = MakeText(footer, "", 24, TextColor, new Vector2(-30, 0), new Vector2(440, 100), new Vector2(1, 0.5f), TextAnchor.MiddleRight);
-        startButton = MakeButton(footer, "この国から始める", new Vector2(-30, 0), new Vector2(300, 64), StartGame, new Vector2(1, 0.5f)).gameObject;
+        // 「始める」ボタンは、始める前だけ上の帯の速さボタンの場所に出す
+        var sb = MakeButton(header, "この国から始める", new Vector2(-240, 0), new Vector2(250, 50), StartGame, new Vector2(1, 0.5f));
+        startButton = sb.gameObject;
+        startLabel = sb.GetComponentInChildren<Text>();
         mapPanel.SetActive(false);
     }
 

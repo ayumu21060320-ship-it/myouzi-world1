@@ -12,6 +12,8 @@ Unity プロジェクトは `My project/` フォルダ。Git に入れるのは�
 ## コードの場所
 - `My project/Assets/Scripts/MyouziGame.cs` … 画面と操作。シーンを再生すると自動で起動する（シーンに置く必要なし）。名字の入力画面 → 世界地図の画面（最初の国を選ぶ → 時間が進む）
 - `My project/Assets/Scripts/NameSpread.cs` … 名字の広がり方（ゲームのルール。国ごとの人数、1日ずつ進める）。Unity に依存しない
+- `My project/Assets/Scripts/Surnames.cs` … よくある名字の表を引く（入力された名字が、どの国にだいたい何人いるか）
+- `My project/Assets/Resources/Surnames.json` … よくある名字の表（書き方・国の記号・だいたいの人数）。手で足してよい
 - `My project/Assets/Scripts/WorldMap.cs` … 世界地図のデータと絵（国ごとの色分け、マウスの下の国を調べる）。Unity の画面には依存しない
 - `My project/Assets/Resources/Map/` … 地図のデータ（`CountryMap.bytes` = ピクセルごとの国の番号、`Countries.json` = 国の名前と人口）。手で直さず `tools/make_world_map.py` で作り直す
 - `tools/make_world_map.py` … 地図のデータを作る道具（Python ＋ Pillow。Unity の外で動かす）
