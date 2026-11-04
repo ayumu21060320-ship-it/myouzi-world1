@@ -5,7 +5,7 @@ using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 // 名字ワールドの画面と操作。シーンを再生すると自動で起動する（シーンに置く必要なし）。
-// いまは最初の「名字を入力する画面」だけ。
+// 名字を入力する画面 → 世界地図の画面（地図のデータと絵は WorldMap.cs）。
 public class MyouziGame : MonoBehaviour
 {
     // プレイヤーが決めた名字（ほかの画面からも読めるようにしておく）
@@ -22,8 +22,11 @@ public class MyouziGame : MonoBehaviour
     InputField nameInput;
     Text messageText;
     GameObject entryPanel;
-    GameObject donePanel;
-    Text doneText;
+    GameObject mapPanel;
+    RectTransform mapRect;
+    Text titleText, worldText, infoText;
+    WorldMap map;
+    int hoverId, selectId;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void Boot()
@@ -74,14 +77,12 @@ public class MyouziGame : MonoBehaviour
         PlayerPrefs.SetString(SaveKey, name);
         PlayerPrefs.Save();
 
-        doneText.text = "世界に「" + name + "」を広めよう！\n\n目標：世界の全員を「" + name + "」さんにする\n\n（この先のゲームはこれから作ります）";
-        entryPanel.SetActive(false);
-        donePanel.SetActive(true);
+        OpenMap();
     }
 
     void BackToEntry()
     {
-        donePanel.SetActive(false);
+        mapPanel.SetActive(false);
         entryPanel.SetActive(true);
         nameInput.ActivateInputField();
     }
@@ -89,6 +90,70 @@ public class MyouziGame : MonoBehaviour
     void ShowMessage(string msg)
     {
         messageText.text = msg;
+    }
+
+    // ================= 世界地図 =================
+
+    void OpenMap()
+    {
+        entryPanel.SetActive(false);
+        mapPanel.SetActive(true);
+        titleText.text = "「" + Surname + "」家の世界進出";
+        if (map != null)
+        {
+            worldText.text = "世界の人口 " + WorldMap.FormatPeople(map.WorldPopulation)
+                           + "\n「" + Surname + "」さん 0人";
+        }
+        UpdateInfo();
+    }
+
+    void Update()
+    {
+        if (map == null || mapPanel == null || !mapPanel.activeSelf) return;
+        var mouse = Mouse.current;
+        if (mouse == null) return;
+
+        // マウスの下にある国を調べる
+        WorldMap.Country c = null;
+        bool onMap = false;
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(mapRect, mouse.position.ReadValue(), null, out var local))
+        {
+            var r = mapRect.rect;
+            var uv = new Vector2((local.x - r.x) / r.width, (local.y - r.y) / r.height);
+            onMap = uv.x >= 0 && uv.x < 1 && uv.y >= 0 && uv.y < 1;
+            c = map.CountryAt(uv);
+        }
+        int hover = c != null ? c.id : 0;
+
+        // 地図の上のクリックでその国を選ぶ（海をクリックすると選ぶのをやめる）
+        int select = selectId;
+        if (mouse.leftButton.wasPressedThisFrame && onMap) select = hover;
+
+        if (hover != hoverId || select != selectId)
+        {
+            hoverId = hover;
+            selectId = select;
+            map.SetHighlight(hoverId, selectId);
+            UpdateInfo();
+        }
+    }
+
+    // 左下の欄に、選んだ国（無ければマウスの下の国）の情報を出す
+    void UpdateInfo()
+    {
+        if (map == null)
+        {
+            infoText.text = "地図のデータが見つかりません（Assets/Resources/Map/）";
+            return;
+        }
+        var c = map.Get(selectId) ?? map.Get(hoverId);
+        if (c == null)
+        {
+            infoText.text = "国にマウスを乗せると、名前と人口が出ます。クリックで選べます";
+            return;
+        }
+        infoText.text = c.name + "（" + c.continent + "）\n人口 " + WorldMap.FormatPeople(c.population)
+                      + "\n「" + Surname + "」さん 0人";
     }
 
     // 入力欄で Enter を押したときも決定する。
@@ -128,11 +193,52 @@ public class MyouziGame : MonoBehaviour
         messageText = MakeText(entryPanel.transform, "", 22, new Color(1f, 0.5f, 0.45f), new Vector2(0, -105), new Vector2(900, 36));
         MakeButton(entryPanel.transform, "この名字で始める", new Vector2(0, -175), new Vector2(320, 70), Confirm);
 
-        // ---- 決めたあとの画面（仮）----
-        donePanel = MakePanel(canvasGo.transform, "DonePanel");
-        doneText = MakeText(donePanel.transform, "", 36, TextColor, new Vector2(0, 60), new Vector2(1100, 300));
-        MakeButton(donePanel.transform, "名字を変える", new Vector2(0, -170), new Vector2(280, 64), BackToEntry);
-        donePanel.SetActive(false);
+        // ---- 世界地図の画面 ----
+        map = WorldMap.Load();
+        mapPanel = MakePanel(canvasGo.transform, "MapPanel");
+        mapPanel.AddComponent<Image>().color = WorldMap.SeaColor; // 海と同じ白で画面全体を塗る
+
+        // 地図は上の帯（70）と下の帯（110）の間に、縦横の比を保って最大の大きさで置く
+        var area = MakePanel(mapPanel.transform, "MapArea");
+        var areaRt = area.GetComponent<RectTransform>();
+        areaRt.offsetMin = new Vector2(10, 110);
+        areaRt.offsetMax = new Vector2(-10, -70);
+        var mapGo = new GameObject("Map");
+        mapGo.transform.SetParent(area.transform, false);
+        mapRect = mapGo.AddComponent<RectTransform>();
+        var raw = mapGo.AddComponent<RawImage>();
+        raw.raycastTarget = false;
+        if (map != null)
+        {
+            raw.texture = map.Texture;
+            var fitter = mapGo.AddComponent<AspectRatioFitter>();
+            fitter.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
+            fitter.aspectRatio = (float)map.Width / map.Height;
+        }
+
+        var header = MakeBar(mapPanel.transform, "Header", true, 70, Background);
+        titleText = MakeText(header, "", 34, Accent, new Vector2(30, 0), new Vector2(700, 60), new Vector2(0, 0.5f), TextAnchor.MiddleLeft);
+        MakeButton(header, "名字を変える", new Vector2(-20, 0), new Vector2(200, 50), BackToEntry, new Vector2(1, 0.5f));
+
+        var footer = MakeBar(mapPanel.transform, "Footer", false, 110, Background);
+        infoText = MakeText(footer, "", 26, TextColor, new Vector2(30, 0), new Vector2(760, 100), new Vector2(0, 0.5f), TextAnchor.MiddleLeft);
+        worldText = MakeText(footer, "", 26, TextColor, new Vector2(-30, 0), new Vector2(440, 100), new Vector2(1, 0.5f), TextAnchor.MiddleRight);
+        mapPanel.SetActive(false);
+    }
+
+    // 画面の上（top = true）か下に、高さ height の帯を置く
+    Transform MakeBar(Transform parent, string name, bool top, float height, Color color)
+    {
+        var go = new GameObject(name);
+        go.transform.SetParent(parent, false);
+        var rt = go.AddComponent<RectTransform>();
+        rt.anchorMin = new Vector2(0, top ? 1 : 0);
+        rt.anchorMax = new Vector2(1, top ? 1 : 0);
+        rt.pivot = new Vector2(0.5f, top ? 1 : 0);
+        rt.offsetMin = new Vector2(0, top ? -height : 0);
+        rt.offsetMax = new Vector2(0, top ? 0 : height);
+        go.AddComponent<Image>().color = color;
+        return go.transform;
     }
 
     GameObject MakePanel(Transform parent, string name)
@@ -148,27 +254,30 @@ public class MyouziGame : MonoBehaviour
     }
 
     // 画面のまん中を (0, 0) として、pos の位置に size の大きさで置く
-    RectTransform Place(GameObject go, Transform parent, Vector2 pos, Vector2 size)
+    // anchor を指定すると、画面のその場所（0,0 = 左下、1,1 = 右上）を基準にする。左端・右端に置くときは
+    // pivot も同じにするので、pos はそこからのずれになる
+    RectTransform Place(GameObject go, Transform parent, Vector2 pos, Vector2 size, Vector2? anchor = null)
     {
         go.transform.SetParent(parent, false);
         var rt = go.GetComponent<RectTransform>();
         if (rt == null) rt = go.AddComponent<RectTransform>();
-        rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
-        rt.pivot = new Vector2(0.5f, 0.5f);
+        rt.anchorMin = rt.anchorMax = rt.pivot = anchor ?? new Vector2(0.5f, 0.5f);
         rt.anchoredPosition = pos;
         rt.sizeDelta = size;
         return rt;
     }
 
-    Text MakeText(Transform parent, string s, int size, Color color, Vector2 pos, Vector2 box)
+    Text MakeText(Transform parent, string s, int size, Color color, Vector2 pos, Vector2 box,
+                  Vector2? anchor = null, TextAnchor align = TextAnchor.MiddleCenter)
     {
         var go = new GameObject("Text");
-        Place(go, parent, pos, box);
+        Place(go, parent, pos, box, anchor);
         var t = go.AddComponent<Text>();
         t.font = font;
         t.fontSize = size;
         t.color = color;
-        t.alignment = TextAnchor.MiddleCenter;
+        t.alignment = align;
+        t.raycastTarget = false;
         t.horizontalOverflow = HorizontalWrapMode.Wrap;
         t.verticalOverflow = VerticalWrapMode.Overflow;
         t.supportRichText = false;
@@ -213,10 +322,11 @@ public class MyouziGame : MonoBehaviour
         return input;
     }
 
-    void MakeButton(Transform parent, string label, Vector2 pos, Vector2 box, UnityEngine.Events.UnityAction onClick)
+    void MakeButton(Transform parent, string label, Vector2 pos, Vector2 box, UnityEngine.Events.UnityAction onClick,
+                    Vector2? anchor = null)
     {
         var go = new GameObject("Button");
-        Place(go, parent, pos, box);
+        Place(go, parent, pos, box, anchor);
         var img = go.AddComponent<Image>();
         img.color = Accent;
         var b = go.AddComponent<Button>();
