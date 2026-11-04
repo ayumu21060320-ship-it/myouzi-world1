@@ -6,7 +6,7 @@
 作るもの（My project/Assets/Resources/Map/ に置く）:
   CountryMap.bytes  … 地図の 1 ピクセルごとに「どの国か」の番号（1 バイト）。0 = 海、255 = 人の住まない土地
                       上の行から順に並ぶ（Unity では上下を反対にして使う）
-  Countries.json    … 国の一覧（番号・日本語名・人口・大陸・名前を出す位置）
+  Countries.json    … 国の一覧（番号・日本語名・国の記号（JPN など）・人口・大陸・名前を出す位置）
 
 使い方:
   python3 tools/make_world_map.py <geojson のパス>
@@ -117,6 +117,7 @@ def main(path):
             "id": c["id"],
             "name": p.get("NAME_JA") or p["NAME"],
             "nameEn": p["NAME"],
+            "code": p["ADM0_A3"],
             "population": c["pop"],
             "continent": CONTINENT_JA.get(p["CONTINENT"], p["CONTINENT"]),
             "labelX": lx,

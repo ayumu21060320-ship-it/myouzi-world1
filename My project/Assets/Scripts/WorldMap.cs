@@ -13,6 +13,7 @@ public class WorldMap
         public int id;
         public string name;      // 日本語の名前
         public string nameEn;
+        public string code;      // 国の記号（JPN など）
         public long population;
         public string continent;
         public int labelX, labelY; // 名前を出す位置（地図のピクセル。上が 0）
@@ -134,6 +135,13 @@ public class WorldMap
         int x = Mathf.Clamp((int)(uv.x * Width), 0, Width - 1);
         int y = Mathf.Clamp((int)(uv.y * Height), 0, Height - 1);
         return byId[ids[y * Width + x]];
+    }
+
+    // 国の記号（JPN など）から国を探す。無ければ null
+    public Country FindByCode(string code)
+    {
+        foreach (var c in Countries) if (c.code == code) return c;
+        return null;
     }
 
     public Country Get(int id) => id > 0 && id < 256 ? byId[id] : null;
