@@ -13,6 +13,8 @@ Unity プロジェクトは `My project/` フォルダ。Git に入れるのは�
 ## コードの場所
 - `My project/Assets/Scripts/RunwayGame.cs` … ゲームの進み・ステージ・カメラ・画面の文字・結果。シーンを再生すると自動で起動する（シーンに置く必要なし）
 - `My project/Assets/Scripts/RunwayModel.cs` … モデルの体（Rigidbody2D の人形）と、足を動かす力。調整用の数は先頭にまとめてある
+- `My project/Assets/Resources/Model/` … モデルの部品の絵（頭・胴体・太もも・すね・靴・上腕・前腕の PNG。1 m = 500 ピクセル、絵のまん中 = 物理の部品のまん中）。手で描き直してもよい（同じ大きさ・同じ中心で）
+- `tools/draw_model.py` … 部品の絵を描く道具（Python ＋ Pillow。Unity の外で動かす）。`python3 tools/draw_model.py 見本.png` で立ち姿の見本も出る
 - 作ったらここに「ファイル名 … 何をするか」を1行ずつ書く
 - ゲームの決まりは `docs/決めたこと.md` が正。コードを変えたらそちらも合わせる
 - 物理の数を変えるときは、Box2D（Python の box2d）で同じ体を作って試算してから入れる（Unity の 2D 物理も Box2D）

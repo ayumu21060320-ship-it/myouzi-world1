@@ -24,6 +24,11 @@ public class RunwayModel
     // 物理の 1 回の計算の時間（秒）。関節のばねが強すぎると体がふるえて飛び散るので、この時間に合わせて強さに上限をつける
     public static float StepTime = 0.0025f;
 
+    // 部品の絵（Assets/Resources/Model/ の PNG。tools/draw_model.py で描いたもの）。1 メートル = この数のピクセル。
+    // 絵が無いときは、色の付いた四角と丸で描く
+    const float ModelPixelsPerUnit = 500f;
+    static readonly Color BackTint = new Color(0.78f, 0.78f, 0.78f); // 奥の手足は少し暗く
+
     // 寸法（メートルのつもり）。地面の上が y = 0
     const float HeelHeight = 0.10f, FootLength = 0.22f;
     const float ShinLength = 0.45f, ThighLength = 0.45f;
@@ -63,17 +68,20 @@ public class RunwayModel
 
         // 胴体（ドレス）と頭
         Torso = MakeBox("Torso", start + new Vector2(0, hipY + TorsoLength / 2), new Vector2(TorsoWidth, TorsoLength), 12f, slip,
-                        square, Dress, 5);
+                        square, Dress, 5, "torso");
         TorsoCollider = Torso.GetComponent<Collider2D>();
-        AddVisual(Torso.transform, square, Dress, new Vector2(0, -TorsoLength / 2 + 0.06f), new Vector2(TorsoWidth + 0.14f, 0.16f), 5); // スカートのすそ
-        Head = MakeCircle("Head", start + new Vector2(0, neckY + HeadRadius + 0.02f), HeadRadius, 3f, slip, circle, Skin, 7);
+        Head = MakeCircle("Head", start + new Vector2(0, neckY + HeadRadius + 0.02f), HeadRadius, 3f, slip, circle, Skin, 7, "head");
         HeadCollider = Head.GetComponent<Collider2D>();
-        AddVisual(Head.transform, circle, Hair, new Vector2(-0.03f, 0.04f), new Vector2(HeadRadius * 2.1f, HeadRadius * 1.6f), 8); // 髪
+        if (LoadPart("torso") == null) // 絵が無いときだけ、四角でスカートのすそと髪を足す
+        {
+            AddVisual(Torso.transform, square, Dress, new Vector2(0, -TorsoLength / 2 + 0.06f), new Vector2(TorsoWidth + 0.14f, 0.16f), 5);
+            AddVisual(Head.transform, circle, Hair, new Vector2(-0.03f, 0.04f), new Vector2(HeadRadius * 2.1f, HeadRadius * 1.6f), 8);
+        }
         Pin(Head, Torso, start + new Vector2(0, neckY));
 
-        // 足（奥が左足、手前が右足）
+        // 足（奥が左足、手前が右足）。どちらもスカートの後ろ（スカートが太ももの付け根にかぶさる）
         left = MakeLeg("Left", start, ankleY, kneeY, hipY, square, grip, slip, SkinBack, ShoeBack, 1);
-        right = MakeLeg("Right", start, ankleY, kneeY, hipY, square, grip, slip, Skin, Shoe, 9);
+        right = MakeLeg("Right", start, ankleY, kneeY, hipY, square, grip, slip, Skin, Shoe, 3);
 
         // 腕（ぶらぶら。操作できない）
         for (int side = 0; side < 2; side++)
@@ -83,9 +91,9 @@ public class RunwayModel
             int order = back ? 0 : 10;
             float shoulderY = neckY - 0.04f;
             var upper = MakeBox("UpperArm", start + new Vector2(0, shoulderY - UpperArmLength / 2), new Vector2(LimbWidth * 0.8f, UpperArmLength), 1.2f,
-                                slip, square, c, order);
+                                slip, square, c, order, "upperarm", back);
             var fore = MakeBox("Forearm", start + new Vector2(0, shoulderY - UpperArmLength - ForearmLength / 2), new Vector2(LimbWidth * 0.7f, ForearmLength), 0.8f,
-                               slip, square, c, order);
+                               slip, square, c, order, "forearm", back);
             Pin(upper, Torso, start + new Vector2(0, shoulderY));
             Pin(fore, upper, start + new Vector2(0, shoulderY - UpperArmLength));
             arms[side * 2] = upper;
@@ -102,10 +110,11 @@ public class RunwayModel
                 PhysicsMaterial2D grip, PhysicsMaterial2D slip, Color skin, Color shoe, int order)
     {
         var leg = new Leg();
+        bool back = name == "Left";
         leg.thigh = MakeBox(name + "Thigh", start + new Vector2(0, kneeY + ThighLength / 2), new Vector2(LimbWidth * 1.15f, ThighLength), 5f,
-                            slip, square, skin, order);
+                            slip, square, skin, order, "thigh", back);
         leg.shin = MakeBox(name + "Shin", start + new Vector2(0, ankleY + ShinLength / 2), new Vector2(LimbWidth, ShinLength), 3f,
-                           slip, square, skin, order);
+                           slip, square, skin, order, "shin", back);
 
         // ハイヒール: 足の裏の板と、かかとの細い棒と、つま先の小さな台。地面に着くのは細いところだけなので、ぐらつく
         var footGo = new GameObject(name + "Foot");
@@ -126,9 +135,12 @@ public class RunwayModel
         colliders.Add(plate);
         colliders.Add(heel);
         colliders.Add(toe);
-        AddVisual(footGo.transform, square, shoe, Vector2.zero, plate.size, order);
-        AddVisual(footGo.transform, square, shoe, heel.offset, heel.size, order);
-        AddVisual(footGo.transform, square, shoe, toe.offset, toe.size, order);
+        if (!AddImage(footGo.transform, "foot", back, order))
+        {
+            AddVisual(footGo.transform, square, shoe, Vector2.zero, plate.size, order);
+            AddVisual(footGo.transform, square, shoe, heel.offset, heel.size, order);
+            AddVisual(footGo.transform, square, shoe, toe.offset, toe.size, order);
+        }
         parts.Add(footGo);
         leg.foot = foot;
 
@@ -228,7 +240,8 @@ public class RunwayModel
 
     // ---- 部品を作る ----
 
-    Rigidbody2D MakeBox(string name, Vector2 pos, Vector2 size, float mass, PhysicsMaterial2D mat, Sprite sprite, Color color, int order)
+    Rigidbody2D MakeBox(string name, Vector2 pos, Vector2 size, float mass, PhysicsMaterial2D mat, Sprite sprite, Color color, int order,
+                        string image = null, bool back = false)
     {
         var go = new GameObject(name);
         go.transform.position = pos;
@@ -238,12 +251,13 @@ public class RunwayModel
         col.size = size;
         col.sharedMaterial = mat;
         colliders.Add(col);
-        AddVisual(go.transform, sprite, color, Vector2.zero, size, order);
+        if (!AddImage(go.transform, image, back, order)) AddVisual(go.transform, sprite, color, Vector2.zero, size, order);
         parts.Add(go);
         return rb;
     }
 
-    Rigidbody2D MakeCircle(string name, Vector2 pos, float radius, float mass, PhysicsMaterial2D mat, Sprite sprite, Color color, int order)
+    Rigidbody2D MakeCircle(string name, Vector2 pos, float radius, float mass, PhysicsMaterial2D mat, Sprite sprite, Color color, int order,
+                           string image = null)
     {
         var go = new GameObject(name);
         go.transform.position = pos;
@@ -253,9 +267,43 @@ public class RunwayModel
         col.radius = radius;
         col.sharedMaterial = mat;
         colliders.Add(col);
-        AddVisual(go.transform, sprite, color, Vector2.zero, new Vector2(radius * 2, radius * 2), order);
+        if (!AddImage(go.transform, image, false, order))
+            AddVisual(go.transform, sprite, color, Vector2.zero, new Vector2(radius * 2, radius * 2), order);
         parts.Add(go);
         return rb;
+    }
+
+    // 部品の絵を読む（1 回読んだら覚えておく）。無ければ null
+    static readonly Dictionary<string, Sprite> partSprites = new Dictionary<string, Sprite>();
+
+    static Sprite LoadPart(string name)
+    {
+        if (string.IsNullOrEmpty(name)) return null;
+        if (partSprites.TryGetValue(name, out var cached)) return cached;
+        var tex = Resources.Load<Texture2D>("Model/" + name);
+        Sprite sprite = null;
+        if (tex != null)
+        {
+            tex.wrapMode = TextureWrapMode.Clamp;
+            // 絵のまん中を、物理の部品のまん中に合わせる
+            sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), ModelPixelsPerUnit);
+        }
+        partSprites[name] = sprite;
+        return sprite;
+    }
+
+    // 部品の絵を貼る。絵が無ければ false
+    static bool AddImage(Transform parent, string image, bool back, int order)
+    {
+        var sprite = LoadPart(image);
+        if (sprite == null) return false;
+        var go = new GameObject("Image");
+        go.transform.SetParent(parent, false);
+        var sr = go.AddComponent<SpriteRenderer>();
+        sr.sprite = sprite;
+        sr.color = back ? BackTint : Color.white;
+        sr.sortingOrder = order;
+        return true;
     }
 
     // 見た目（色の付いた四角や丸）。物理の部品の子にして、一緒に動かす

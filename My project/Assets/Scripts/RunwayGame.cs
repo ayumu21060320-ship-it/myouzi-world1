@@ -7,7 +7,7 @@ using UnityEngine.UI;
 // ランウェイ・ウォーク（仮）: パリコレモデルの足を操作して、ランウェイの先まできれいに歩くバカゲー。
 // シーンを再生すると自動で起動する（シーンに置く必要なし）。モデルの体は RunwayModel.cs。
 //
-// 操作: A / D = 左足を前へ / 後ろへ、J / L = 右足を前へ / 後ろへ、スペース = ひざを伸ばす、R = やり直し
+// 操作: Enter = スタート、A / D = 左足を前へ / 後ろへ、J / L = 右足を前へ / 後ろへ、スペース = ひざを伸ばす、R = やり直し
 // ランウェイの先の「POSE」の場所で、2 秒まっすぐ立てたらクリア（決めポーズ）。
 // 頭か胴体が床に着いたら転倒（スローモーションになり、カメラのフラッシュが光る）。
 public class RunwayGame : MonoBehaviour
@@ -90,7 +90,7 @@ public class RunwayGame : MonoBehaviour
         cleared = false;
         Time.timeScale = 1f;
         resultPanel.SetActive(false);
-        centerText.text = "キーを押すとスタート\n\nA / D … 左足を 前へ / 後ろへ\nJ / L … 右足を 前へ / 後ろへ\nスペース … ひざを伸ばす\n\nランウェイの先の POSE で、2 秒きれいに立てばクリア";
+        centerText.text = "Enter でスタート\n\nA / D … 左足を 前へ / 後ろへ\nJ / L … 右足を 前へ / 後ろへ\nスペース … ひざを伸ばす\n\nランウェイの先の POSE で、2 秒きれいに立てばクリア";
         PlaceCamera(true);
     }
 
@@ -111,7 +111,13 @@ public class RunwayGame : MonoBehaviour
         model.RightBack = kb.lKey.isPressed;
         model.KneesStraight = kb.spaceKey.isPressed;
 
-        if (state == State.Ready && (kb.aKey.isPressed || kb.dKey.isPressed || kb.jKey.isPressed || kb.lKey.isPressed || kb.spaceKey.isPressed))
+        bool enter = kb.enterKey.wasPressedThisFrame || kb.numpadEnterKey.wasPressedThisFrame;
+        if (state == State.Result && enter)
+        {
+            ResetGame(); // 結果の画面で Enter を押すと、もう一度スタートの前へ
+            return;
+        }
+        if (state == State.Ready && enter)
         {
             state = State.Walking;
             centerText.text = "";
@@ -303,7 +309,7 @@ public class RunwayGame : MonoBehaviour
 
         statusText = MakeText(canvasGo.transform, 26, TextColor, new Vector2(0, -30), new Vector2(1200, 40), new Vector2(0.5f, 1f));
         MakeText(canvasGo.transform, 20, new Color(0.7f, 0.7f, 0.75f), new Vector2(0, 24), new Vector2(1200, 30), new Vector2(0.5f, 0f))
-            .text = "A / D 左足　　J / L 右足　　スペース ひざを伸ばす　　R やり直し";
+            .text = "Enter スタート　　A / D 左足　　J / L 右足　　スペース ひざを伸ばす　　R やり直し";
         centerText = MakeText(canvasGo.transform, 30, Accent, new Vector2(0, 120), new Vector2(1100, 360), new Vector2(0.5f, 0.5f));
 
         resultPanel = new GameObject("Result");
@@ -323,7 +329,7 @@ public class RunwayGame : MonoBehaviour
         b.targetGraphic = img;
         b.onClick.AddListener(ResetGame);
         var label = MakeText(button.transform, 28, new Color(0.1f, 0.08f, 0.1f), Vector2.zero, new Vector2(280, 60), new Vector2(0.5f, 0.5f));
-        label.text = "もう一度（R）";
+        label.text = "もう一度（Enter）";
         resultPanel.SetActive(false);
     }
 
