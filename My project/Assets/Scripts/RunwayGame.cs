@@ -20,7 +20,8 @@ public class RunwayGame : MonoBehaviour
     const int Substeps = 4;            // 物理の 1 回（0.01 秒）を何回に分けて計算するか（ふるえを防ぐ）
     const float SlowMotion = 0.25f;    // 転んだときの速さ
     const float FallShowSeconds = 2f;  // 転んでから結果が出るまで（実際の秒）
-    const float FallHeadHeight = 1.2f; // 頭がこれより低くなったら転倒（上半身が回らないので、しゃがみこみで判定する）
+    const float FallHeadHeight = 1.2f; // 頭がこれより低いと「しゃがみこみ」
+    const float CrouchSeconds = 3f;    // しゃがみこみがこれだけ続いたら転倒（それまでに立ち直ればセーフ）
 
     static readonly Color Back = new Color(0.07f, 0.06f, 0.1f);
     static readonly Color RunwayColor = new Color(0.92f, 0.92f, 0.95f);
@@ -39,7 +40,8 @@ public class RunwayGame : MonoBehaviour
     Text statusText, centerText, resultText;
     GameObject resultPanel;
     float elapsed, poseTimer, fallTimer, eleganceSum;
-    bool moved;             // Enter のあと、足のキーを 1 回でも押したか（押すまでは直立したまま止めておく）
+    bool moved;
+    float crouchTimer;      // しゃがみこんでいる時間             // Enter のあと、足のキーを 1 回でも押したか（押すまでは直立したまま止めておく）
     int eleganceSamples;
     bool cleared;
     float flashTimer;
@@ -89,6 +91,7 @@ public class RunwayGame : MonoBehaviour
         state = State.Ready;
         elapsed = poseTimer = fallTimer = eleganceSum = 0f;
         moved = false;
+        crouchTimer = 0f;
         eleganceSamples = 0;
         cleared = false;
         Time.timeScale = 1f;
@@ -166,15 +169,28 @@ public class RunwayGame : MonoBehaviour
 
     void CheckWalking()
     {
-        // 転んだ: 頭か胴体が床に着いた、しゃがみこんだ（頭の高さが FallHeadHeight より下）、またはランウェイから落ちた
-        if (model.HeadCollider.IsTouching(floor) || model.TorsoCollider.IsTouching(floor) || model.HeadHeight < FallHeadHeight)
+        // 転倒: 上半身（胴体か頭）が床に着いた、またはランウェイの端から落ちた → すぐにゲームオーバー
+        if (model.HeadCollider.IsTouching(floor) || model.TorsoCollider.IsTouching(floor) || model.HeadHeight < 0f)
         {
-            state = State.Falling;
-            Time.timeScale = SlowMotion;
-            fallTimer = 0f;
-            Flash();
-            centerText.text = "転倒…";
+            Fall("転倒…");
             return;
+        }
+
+        // しゃがみこみ: 少しのあいだなら大丈夫。CrouchSeconds 秒続いたらゲームオーバー
+        if (model.HeadHeight < FallHeadHeight)
+        {
+            crouchTimer += Time.fixedDeltaTime;
+            centerText.text = "立ち上がって！ " + Mathf.Max(0f, CrouchSeconds - crouchTimer).ToString("F1");
+            if (crouchTimer >= CrouchSeconds)
+            {
+                Fall("座り込み…");
+                return;
+            }
+        }
+        else if (crouchTimer > 0f)
+        {
+            crouchTimer = 0f;
+            centerText.text = "";
         }
 
         // エレガント度: 体がまっすぐで、頭が高いほど高い（0〜100）
@@ -206,6 +222,18 @@ public class RunwayGame : MonoBehaviour
         if (Random.value < 0.01f) Flash(0.25f);
     }
 
+    void Fall(string message)
+    {
+        state = State.Falling;
+        Time.timeScale = SlowMotion;
+        fallTimer = 0f;
+        Flash();
+        centerText.text = message;
+        fallMessage = message;
+    }
+
+    string fallMessage = "転倒…";
+
     float Elegance => eleganceSamples > 0 ? eleganceSum / eleganceSamples : 0f;
 
     void ShowResult()
@@ -219,7 +247,7 @@ public class RunwayGame : MonoBehaviour
             title = Elegance >= 80 ? "伝説のスーパーモデル" : Elegance >= 60 ? "トップモデル" : "ガニ股モデル";
         else
             title = distance < 2f ? "生まれたての子鹿" : distance < 8f ? "酔っぱらいのペンギン" : distance < RunwayLength - PoseZone ? "期待の新人モデル" : "あと一歩のモデル";
-        resultText.text = (cleared ? "決めポーズ！ クリア！" : "転倒…") + "\n\n「" + title + "」\n\n"
+        resultText.text = (cleared ? "決めポーズ！ クリア！" : fallMessage) + "\n\n「" + title + "」\n\n"
                         + "歩いた距離 " + distance.ToString("F1") + " m / " + RunwayLength.ToString("F0") + " m\n"
                         + "時間 " + elapsed.ToString("F1") + " 秒\n"
                         + "エレガント度 " + Elegance.ToString("F0") + " / 100";
