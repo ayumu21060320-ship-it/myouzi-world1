@@ -7,7 +7,7 @@ using UnityEngine.UI;
 // ランウェイ・ウォーク（仮）: パリコレモデルの足を操作して、ランウェイの先まできれいに歩くバカゲー。
 // シーンを再生すると自動で起動する（シーンに置く必要なし）。モデルの体は RunwayModel.cs。
 //
-// 操作: Enter = スタート、A / D = 左足を前へ / 後ろへ、J / L = 右足を前へ / 後ろへ、スペース = ひざを伸ばす、R = やり直し
+// 操作: Enter = スタート（足のキーを押すまでは直立のまま止まっている）、A / D = 左足を前へ / 後ろへ、J / L = 右足を前へ / 後ろへ、スペース = ひざを伸ばす、R = やり直し
 // ランウェイの先の「POSE」の場所で、2 秒まっすぐ立てたらクリア（決めポーズ）。
 // 頭か胴体が床に着いたら転倒（スローモーションになり、カメラのフラッシュが光る）。
 public class RunwayGame : MonoBehaviour
@@ -38,6 +38,7 @@ public class RunwayGame : MonoBehaviour
     Text statusText, centerText, resultText;
     GameObject resultPanel;
     float elapsed, poseTimer, fallTimer, eleganceSum;
+    bool moved;             // Enter のあと、足のキーを 1 回でも押したか（押すまでは直立したまま止めておく）
     int eleganceSamples;
     bool cleared;
     float flashTimer;
@@ -86,6 +87,7 @@ public class RunwayGame : MonoBehaviour
         model = new RunwayModel(Vector2.zero, square, circle, grip, slip);
         state = State.Ready;
         elapsed = poseTimer = fallTimer = eleganceSum = 0f;
+        moved = false;
         eleganceSamples = 0;
         cleared = false;
         Time.timeScale = 1f;
@@ -120,10 +122,18 @@ public class RunwayGame : MonoBehaviour
         if (state == State.Ready && enter)
         {
             state = State.Walking;
+            centerText.text = "足のキー（A・D・J・L・スペース）を押すと動き出します";
+        }
+
+        // 足のキーを押すまでは、物理を止めて直立のまま待つ
+        if (state == State.Walking && !moved &&
+            (kb.aKey.isPressed || kb.dKey.isPressed || kb.jKey.isPressed || kb.lKey.isPressed || kb.spaceKey.isPressed))
+        {
+            moved = true;
             centerText.text = "";
         }
 
-        if (state == State.Walking) elapsed += Time.deltaTime;
+        if (state == State.Walking && moved) elapsed += Time.deltaTime;
 
         if (state == State.Falling)
         {
@@ -138,6 +148,7 @@ public class RunwayGame : MonoBehaviour
     void FixedUpdate()
     {
         if (state == State.Ready || state == State.Result) return;
+        if (state == State.Walking && !moved) return; // まだ足を動かしていない: 直立のまま
         float h = Time.fixedDeltaTime / Substeps;
         for (int k = 0; k < Substeps; k++)
         {
