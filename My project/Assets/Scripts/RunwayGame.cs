@@ -20,6 +20,7 @@ public class RunwayGame : MonoBehaviour
     const int Substeps = 4;            // 物理の 1 回（0.01 秒）を何回に分けて計算するか（ふるえを防ぐ）
     const float SlowMotion = 0.25f;    // 転んだときの速さ
     const float FallShowSeconds = 2f;  // 転んでから結果が出るまで（実際の秒）
+    const float FallHeadHeight = 1.2f; // 頭がこれより低くなったら転倒（上半身が回らないので、しゃがみこみで判定する）
 
     static readonly Color Back = new Color(0.07f, 0.06f, 0.1f);
     static readonly Color RunwayColor = new Color(0.92f, 0.92f, 0.95f);
@@ -165,8 +166,8 @@ public class RunwayGame : MonoBehaviour
 
     void CheckWalking()
     {
-        // 転んだ: 頭か胴体が床に着いた、またはランウェイから落ちた
-        if (model.HeadCollider.IsTouching(floor) || model.TorsoCollider.IsTouching(floor) || model.HeadHeight < 0.3f)
+        // 転んだ: 頭か胴体が床に着いた、しゃがみこんだ（頭の高さが FallHeadHeight より下）、またはランウェイから落ちた
+        if (model.HeadCollider.IsTouching(floor) || model.TorsoCollider.IsTouching(floor) || model.HeadHeight < FallHeadHeight)
         {
             state = State.Falling;
             Time.timeScale = SlowMotion;
